@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @park.name
+p
+  strong Longitude:
+  = @park.longitude
+p
+  strong Latitude:
+  = @park.latitude
+
+= link_to 'Edit', edit_park_path(@park)
+'|
+= link_to 'Back', parks_path

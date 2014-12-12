@@ -1,0 +1,25 @@
+h1 Listing parks
+
+table
+  thead
+    tr
+      th Name
+      th Longitude
+      th Latitude
+      th
+      th
+      th
+
+  tbody
+    - @parks.each do |park|
+      tr
+        td = park.name
+        td = park.longitude
+        td = park.latitude
+        td = link_to 'Show', park
+        td = link_to 'Edit', edit_park_path(park)
+        td = link_to 'Destroy', park, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Park', new_park_path

@@ -63,3 +63,4 @@ end
 gem "slim-rails"
 gem "newrelic_rpm"
 gem 'activerecord-postgis-adapter'
+gem 'squeel'
