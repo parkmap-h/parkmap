@@ -16,6 +16,11 @@ class Park < ActiveRecord::Base
     Park.rgeo_factory_for_column(:geog).point(longitude,latitude)
   end
 
+  def self.search(params)
+    point = point(params[:longitude].to_f,params[:latitude].to_f)
+    within_range(point,params[:distance])
+  end
+
   def longitude
     geog.longitude
   end

@@ -1,0 +1,16 @@
+h1 近場の駐車場を探せるサービス
+
+- place = Place.movinon
+= form_tag do |f|
+  | 緯度
+  = text_field_tag('longitude',place.longitude)
+  | 経度
+  = text_field_tag('latitude',place.latitude)
+  br
+  = text_field_tag('distance',500)
+  | m以内
+  br
+  = submit_tag('検索')
+
+a href="http://user.numazu-ct.ac.jp/~tsato/webmap/sphere/coordinates/advanced.html" target="_blank"
+    | 経度緯度を求めるのに利用できるサイト
