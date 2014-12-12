@@ -14,7 +14,7 @@ class Park < ActiveRecord::Base
   }
 
   def self.point(longitude, latitude)
-    Park.rgeo_factory_for_column(:geog).point(longitude,latitude)
+    Park.rgeo_factory_for_column(:geog,{}).point(longitude,latitude)
   end
 
   def self.search(params)
@@ -23,11 +23,11 @@ class Park < ActiveRecord::Base
   end
 
   def longitude
-    geog.longitude
+    geog.try(:longitude)
   end
 
   def latitude
-    geog.latitude
+    geog.try(:latitude)
   end
 
   def distance
