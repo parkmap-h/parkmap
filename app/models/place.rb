@@ -10,4 +10,8 @@ class Place
   def self.shakehands
     point(132.458730,34.393917)
   end
+
+  def self.movinon
+    point(132.465511,34.393056)
+  end
 end
