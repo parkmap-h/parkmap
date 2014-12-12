@@ -1,4 +1,11 @@
 - if @parks.count == 0
   | 駐車場がみつかりません。
-- @parks.each do |park|
-  = park.name
+
+.park
+  - @parks.each do |park|
+    .park--name
+      = park.name
+    .park--distance
+      | #{number_to_human(park.distance)} m
+
+a href="/" もどる

@@ -10,6 +10,7 @@ class Park < ActiveRecord::Base
 
   scope :within_range ,-> point, distance {
     Park.where{st_distance(geog, point) < distance}
+      .select{[st_distance(geog, point),name,geog]}
   }
 
   def self.point(longitude, latitude)
@@ -27,6 +28,10 @@ class Park < ActiveRecord::Base
 
   def latitude
     geog.latitude
+  end
+
+  def distance
+    st_distance
   end
 
   # factory
