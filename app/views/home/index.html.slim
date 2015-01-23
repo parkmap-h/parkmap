@@ -4,7 +4,7 @@ h1 近場の駐車場を探せるサービス
 
 
 - place = Place.movinon
-= form_tag do |f|
+= form_tag "/.json", remote: true, id: :search do |f|
   | 緯度
   = text_field_tag('longitude',place.longitude)
   | 経度
@@ -14,6 +14,8 @@ h1 近場の駐車場を探せるサービス
   | m以内
   br
   = submit_tag('検索')
+
+ul#parks
 
 ul
   li

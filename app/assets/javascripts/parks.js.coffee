@@ -4,6 +4,7 @@
 
 map = null
 marker = null
+parks = []
 
 click = (event) ->
   if marker
@@ -16,9 +17,20 @@ click = (event) ->
   $("#longitude").val(event.latLng.D)
   $("#latitude").val(event.latLng.k)
 
+result = (event,data,status) ->
+  for park in parks
+    park.setMap(null)
 
-center_changed = () ->
-  console.log(event.latLng)
+  parks = []
+  $parks = $("#parks")
+  $parks.html("")
+  for park in data
+    parks << new google.maps.Marker
+      position: new google.maps.LatLng(park.latitude, park.longitude)
+      draggable: false,
+      map: map
+    $park = $('<li class="park"\>').append(park.name + " 距離" + park.distance)
+    $parks.append($park)
 
 initialize = ->
   position = new google.maps.LatLng(34.393056, 132.465511)
@@ -36,3 +48,6 @@ initialize = ->
   google.maps.event.addListener(map, 'click', click)
 
 google.maps.event.addDomListener(window, 'load', initialize)
+
+$ ->
+  $("#search").bind("ajax:success",result)
