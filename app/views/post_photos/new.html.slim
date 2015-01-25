@@ -1,6 +1,10 @@
+ul.alert
+  - @post.errors.full_messages.each do |message|
+    li #{message}
+
 = form_for @post, html: { multipart: true} do |f|
   p
-    label My Avatar URL
+    label
     = f.file_field :photo
   div
     label Note

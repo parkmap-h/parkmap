@@ -9,9 +9,6 @@ class PostPhotosController < ApplicationController
 
   def create
     @post = PostPhoto.new(post)
-    extf = EXIFR::JPEG.new(@post.photo.file.file)
-    @post.geog = Park.point(extf.gps.longitude, extf.gps.latitude)
-    @post.image_direction = extf.gps.image_direction
     if @post.save
       redirect_to @post, action: :show
     else
