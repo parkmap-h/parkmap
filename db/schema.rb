@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212064346) do
+ActiveRecord::Schema.define(version: 20150125001517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20141212064346) do
     t.spatial  "geog",       limit: {:srid=>4326, :type=>"point", :geographic=>true}, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "post_photos", force: true do |t|
+    t.string   "photo",                                              null: false
+    t.float    "image_direction",                                    null: false
+    t.text     "note",                                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.spatial  "geog",            limit: {:srid=>0, :type=>"point"}, null: false
   end
 
 end
