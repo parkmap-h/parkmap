@@ -1,0 +1,19 @@
+#!/bin/sh
+
+DB_IMAGE="mdillon/postgis:9.4"
+DB_CONTAINER_NAME="parkmap-db"
+RAILS_CONTAINER_NAME="parkmap"
+OPTIONS="--rm -it -v "$(pwd)":/usr/src/app --link ${DB_CONTAINER_NAME}:db -p 3000:3000"
+
+case $1 in
+    build)
+	CMD="docker build -t ${RAILS_CONTAINER_NAME} ." ;;
+    db)
+	CMD="docker run -d --name ${DB_CONTAINER_NAME} ${DB_IMAGE}" ;;
+    *)
+	IPADDRESS=`boot2docker config | grep LowerIP | cut -d'"' -f 2`
+	echo "http://${IPADDRESS}:3000/"
+	CMD="docker run ${OPTIONS} ${RAILS_CONTAINER_NAME} $@" ;;
+esac
+echo $CMD
+$CMD
