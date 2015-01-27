@@ -1,0 +1,13 @@
+ul.alert
+  - @post.errors.full_messages.each do |message|
+    li #{message}
+
+= form_for @post, html: { multipart: true} do |f|
+  p
+    label
+    = f.file_field :photo
+  div
+    label Note
+    = f.text_area :note, size: '40x10'
+  .button
+    =  f.submit

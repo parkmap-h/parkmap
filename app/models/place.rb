@@ -1,3 +1,4 @@
+# 特定の場所を生成するファクトリ
 class Place
   def self.point(longitude,latitude)
     Park.point(longitude, latitude)

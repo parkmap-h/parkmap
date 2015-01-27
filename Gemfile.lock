@@ -46,6 +46,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -60,6 +65,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    exifr (1.2.0)
     hike (1.2.3)
     i18n (0.6.11)
     interception (0.5)
@@ -208,7 +214,9 @@ DEPENDENCIES
   awesome_print
   bullet
   capybara
+  carrierwave
   coffee-rails (~> 4.0.0)
+  exifr
   jbuilder (~> 2.0)
   jquery-rails
   newrelic_rpm
