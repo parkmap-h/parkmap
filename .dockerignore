@@ -1,0 +1,8 @@
+.git
+tmp/cache
+tmp/sockets
+tmp/pids
+tmp/sessions
+log/*
+*.sql
+.bundle
