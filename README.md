@@ -47,6 +47,15 @@ $ bin/rails s
 Dockerをインストールしていない場合は以下のリンクから対応するインストーラをダウンロードする
 https://docs.docker.com/installation/#installation
 
+Dockerデーモンを起動する
+```
+$ boot2docker up
+```
+初回は以下のコマンドを実行しておく
+```
+$(boot2docker shellinit)
+```
+
 Dockerを利用して開発する場合
 
 ```
@@ -58,6 +67,14 @@ bin/rails s
 ```
 
 `bin/docker_support`とするだけでもrails sを起動します。
+
+起動したら以下のコマンドでdockerのipアドレスが確認できるのでブラウザで_http://dockerのipアドレス:3000_アクセスして動作を確認する
+```bash
+$ boot2docker ip
+docker@localhost's password: tcuser
+192.168.59.103
+```
+
 
 Gemfileを変更したら`bin/docker_support build`を実行してください。
 
