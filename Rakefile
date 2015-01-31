@@ -4,3 +4,13 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
+
+namespace :docker do
+  task :push do
+    sh 'fig build'
+    sh 'docker tag -f parkmap_web eiel/parkmap'
+    sha = `git rev-parse HEAD`.chop
+    sh "docker tag -f parkmap_web eiel/parkmap:#{sha}"
+    sh "docker push eiel/parkmap eiel/parkmap:#{sha}"
+  end
+end

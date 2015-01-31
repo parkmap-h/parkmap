@@ -6,3 +6,8 @@ tmp/sessions
 log/*
 *.sql
 .bundle
+*.sql
+containers.yml
+.envrc
+.vagrant
+fig.yml
