@@ -10,8 +10,8 @@
 | ruby      　　 |2.2.0        |             |
 | rails     　　 |4.1.8        |             |
 | docker    　　 |1.4.1        |             |
+| fig       　　 |1.0.1        |             |
 | postgres (PostgreSQL)    　　 |9.3.5        |             |
-
 # 構成
 + [セットアップ(ローカル環境編)](#1)
 + [セットアップ(Docker編)](#2)
@@ -58,28 +58,25 @@ $(boot2docker shellinit)
 
 Dockerを利用して開発する場合
 
+あらかじめ fig をインストールしておく。
 ```
-bin/docker_support db
-bin/docker_support build
-bin/docker_support bash
-bin/rake db:setup
-bin/rails s
+$ brew install fig
 ```
 
-`bin/docker_support`とするだけでもrails sを起動します。
+```
+fig up
+fig run web bin/rake db:setup
+```
 
 起動したら以下のコマンドでdockerのipアドレスが確認できるのでブラウザで_http://dockerのipアドレス:3000_アクセスして動作を確認する
 ```bash
 $ boot2docker ip
-docker@localhost's password: tcuser
 192.168.59.103
 ```
-
-
-Gemfileを変更したら`bin/docker_support build`を実行してください。
 
 ## <a name="3">セットアップ(Vagrant編)</a>
 
 # 参照
 + [PostGISを試してみる](http://blog.eiel.info/blog/2014/12/11/postgis-abc/)
 + [dockerをつかってrailsの開発をしてみる](http://qiita.com/eielh/items/754c1f785e66e3c4cee0)
++ [boot2docker + figで始めるDockerコンテナ・オーケストレーション](http://dev.classmethod.jp/server-side/docker-server-side/orchestration-with-boot2docker-fig/)
