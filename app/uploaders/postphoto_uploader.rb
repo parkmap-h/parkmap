@@ -14,7 +14,9 @@ class PostphotoUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
-    raise '環境変数 GOOGLE_STORAGE_IDとGOOGLE_STORAGE_KEYを設定してください' if ENV['GOOGLE_STORAGE_ID'] && ENV['GOOGLE_STORAGE_KEY']
+    if ENV['GOOGLE_STORAGE_ID'] == nil && ENV['GOOGLE_STORAGE_KEY'] == nil
+      raise '環境変数 GOOGLE_STORAGE_IDとGOOGLE_STORAGE_KEYを設定してください'
+    end
     storage :fog
   else
     storage :file
