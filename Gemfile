@@ -67,3 +67,6 @@ gem 'squeel'
 
 gem 'carrierwave'
 gem 'exifr'
+gem 'mini_magick'
+gem 'fog'
+  gem 'jquery-fileupload-rails'
