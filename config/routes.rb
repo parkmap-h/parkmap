@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :parks
-  resources :post_photos, path: :posts
+  resources :parks, only: [:index, :show, :edit]
+  resources :post_photos, path: :posts do
+    resources :parks, only: [:new,:create]
+  end
   root 'home#index'
   post '/(.:format)' => 'home#search'
 

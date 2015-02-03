@@ -2,6 +2,11 @@ class Park < ActiveRecord::Base
   self.rgeo_factory_generator = RGeo::Geos.factory_generator
   set_rgeo_factory_for_column(:geog, RGeo::Geographic.spherical_factory(srid: 4326))
 
+  has_many :park_photos
+  has_many :photos, through: :park_photos, source: :post_photo
+
+  validates :name, presence: true
+
   attr_writer :longitude, :latitude
 
   before_create do
