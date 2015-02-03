@@ -1,6 +1,6 @@
 class PostPhotosController < ApplicationController
   def index
-    @posts = PostPhoto.all
+    @posts = PostPhoto.all.reverse_order
   end
 
   def new
