@@ -1,7 +1,6 @@
 class PostPhotosController < ApplicationController
   def index
-    @posts = PostPhoto.where.not(id: ParkPhoto.select(:post_photo_id))
-      .reverse_order
+    @posts = PostPhoto.no_relation.reverse_order
   end
 
   def new
