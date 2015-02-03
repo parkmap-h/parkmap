@@ -5,6 +5,8 @@ class Park < ActiveRecord::Base
   has_many :park_photos
   has_many :photos, through: :park_photos, source: :post_photo
 
+  validates :name, presence: true
+
   attr_writer :longitude, :latitude
 
   before_create do

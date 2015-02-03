@@ -25,10 +25,10 @@ class ParksController < ApplicationController
   # POST /parks
   # POST /parks.json
   def create
-
-
+    @park = @photo.parks.build(park_params)
     respond_to do |format|
-      if @park = @photo.parks.create(park_params)
+      if @park.valid?
+        @park = @photo.parks.create!(park_params)
         format.html { redirect_to @park, notice: 'Park was successfully created.' }
         format.json { render :show, status: :created, location: @park }
       else
@@ -55,7 +55,7 @@ class ParksController < ApplicationController
   # DELETE /parks/1
   # DELETE /parks/1.json
   def destroy
-    @park.destroy
+    # @park.destroy
     respond_to do |format|
       format.html { redirect_to parks_url, notice: 'Park was successfully destroyed.' }
       format.json { head :no_content }
