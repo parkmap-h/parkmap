@@ -1,3 +1,8 @@
+| 周辺50mの駐車場(重複しないか確認の用)
+ul
+  - Park.within_range(@photo.geog, 50).each do |park|
+    li #{park.name} #{number_to_human(park.distance)} m
+
 = form_for [@photo, @park] do |f|
   - if @park.errors.any?
     #error_explanation
