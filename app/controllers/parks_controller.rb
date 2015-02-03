@@ -1,5 +1,6 @@
 class ParksController < ApplicationController
   before_action :set_park, only: [:show, :edit, :update, :destroy]
+  before_action :photo, only: [:new, :create]
 
   # GET /parks
   # GET /parks.json
@@ -24,10 +25,10 @@ class ParksController < ApplicationController
   # POST /parks
   # POST /parks.json
   def create
-    @park = Park.new(park_params)
+
 
     respond_to do |format|
-      if @park.save
+      if @park = @photo.parks.create(park_params)
         format.html { redirect_to @park, notice: 'Park was successfully created.' }
         format.json { render :show, status: :created, location: @park }
       else
@@ -70,5 +71,9 @@ class ParksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def park_params
       params.require(:park).permit(:name, :longitude, :latitude)
+    end
+
+    def photo
+      @photo = PostPhoto.find(params[:post_photo_id])
     end
 end

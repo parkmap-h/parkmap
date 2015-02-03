@@ -1,4 +1,4 @@
-= form_for @park do |f|
+= form_for [@photo, @park] do |f|
   - if @park.errors.any?
     #error_explanation
       h2 = "#{pluralize(@park.errors.count, "error")} prohibited this park from being saved:"
@@ -11,8 +11,10 @@
     = f.text_field :name
   .field
     = f.label :longitude
-    = f.text_field :longitude
+    = f.text_field :longitude, value: @photo.geog.longitude
   .field
     = f.label :latitude
-    = f.text_field :latitude
-  .actions = f.submit 'Save'
+    = f.text_field :latitude, value: @photo.geog.latitude
+    .actions = f.submit 'Save'
+
+= image_tag @photo.photo.url
