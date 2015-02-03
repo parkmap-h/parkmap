@@ -8,9 +8,9 @@ Rails.application.load_tasks
 namespace :docker do
   task :push do
     sh 'fig build'
-    sh 'docker tag -f parkmap_web eiel/parkmap'
+    sh 'docker tag -f parkmap_web gcr.io/maginest/parkmap'
     sha = `git rev-parse HEAD`.chop
-    sh "docker tag -f parkmap_web eiel/parkmap:#{sha}"
-    sh "docker push eiel/parkmap eiel/parkmap:#{sha}"
+    sh "docker tag -f parkmap_web gcr.io/maginest:#{sha}"
+    sh "docker push eiel/parkmap gcr.io/maginest/parkmap:#{sha}"
   end
 end
