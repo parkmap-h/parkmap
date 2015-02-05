@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :parks, only: [:index, :show, :edit]
+  resources :parks, only: [:index, :show, :edit, :update]
   resources :post_photos, path: :posts do
     resources :parks, only: [:new,:create]
   end
