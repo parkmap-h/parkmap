@@ -53,6 +53,8 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
     cliver (0.3.2)
+    codeclimate-test-reporter (0.4.5)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -64,6 +66,7 @@ GEM
     columnize (0.9.0)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     excon (0.42.1)
     execjs (2.2.2)
@@ -244,6 +247,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slim (3.0.1)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -297,6 +305,7 @@ DEPENDENCIES
   bullet
   capybara
   carrierwave
+  codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   exifr
   fog
