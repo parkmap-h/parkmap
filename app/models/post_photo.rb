@@ -8,6 +8,9 @@ class PostPhoto < ActiveRecord::Base
   has_many :park_photos
   has_many :parks, through: :park_photos
 
+  # まだ駐車場と結びついていないもの
+  scope :no_relation, -> { where.not(id: ParkPhoto.select(:post_photo_id)) }
+
   before_validation do
     next if persisted?
     next if photo.file.nil?
