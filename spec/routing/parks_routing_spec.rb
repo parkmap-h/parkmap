@@ -8,7 +8,7 @@ RSpec.describe ParksController, :type => :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/parks/new").to route_to("parks#new")
+      expect(:get => "/posts/1/parks/new").to route_to("parks#new", post_photo_id: "1")
     end
 
     it "routes to #show" do
@@ -20,16 +20,11 @@ RSpec.describe ParksController, :type => :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/parks").to route_to("parks#create")
+      expect(:post => "/posts/1/parks").to route_to("parks#create", post_photo_id: "1")
     end
 
     it "routes to #update" do
       expect(:put => "/parks/1").to route_to("parks#update", :id => "1")
     end
-
-    it "routes to #destroy" do
-      expect(:delete => "/parks/1").to route_to("parks#destroy", :id => "1")
-    end
-
   end
 end
