@@ -20,6 +20,9 @@ default: &default
   schema_search_path: public
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
+  host: <%= ENV["DB_PORT_5432_TCP_ADDR"] || 'localhost' %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRESS_PASSWORD"] %>
   pool: 5
 
 development:
