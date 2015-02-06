@@ -1,4 +1,6 @@
 [![Circle CI](https://circleci.com/gh/parkmap-h/parkmap.svg?style=svg)](https://circleci.com/gh/parkmap-h/parkmap)
+[![Code Climate](https://codeclimate.com/github/parkmap-h/parkmap/badges/gpa.svg)](https://codeclimate.com/github/parkmap-h/parkmap)
+[![Code Climate](https://codeclimate.com/github/parkmap-h/parkmap/badges/gpa.svg)](https://codeclimate.com/github/parkmap-h/parkmap)
 
 Dockerを利用して開発する場合
 
