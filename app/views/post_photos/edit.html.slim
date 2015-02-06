@@ -1,0 +1,7 @@
+img src=@post.photo.mini.url
+= form_for @post do |f|
+  div
+    = f.label :note
+    = f.text_area :note, size: '60x6'
+  div
+    = f.submit
