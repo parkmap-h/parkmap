@@ -10,6 +10,8 @@ table
           li 緯度 #{post.geog.longitude}
           li 経度 #{post.geog.latitude}
       td
+        = post.note
+      td
         a href=new_post_photo_park_path(post) 登録する
       td
-        = post.note
+        a href=edit_post_photo_path(post) 編集する

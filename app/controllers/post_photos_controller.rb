@@ -24,6 +24,19 @@ class PostPhotosController < ApplicationController
     @post = PostPhoto.find(params[:id])
   end
 
+  def edit
+    @post = PostPhoto.find(params[:id])
+  end
+
+  def update
+    @post = PostPhoto.find(params[:id])
+    if @post.update(post)
+      redirect_to action: :index
+    else
+      render :edit
+    end
+  end
+
   private
   def post
     params.require(:post_photo).permit(:photo,:note)
