@@ -9,10 +9,14 @@ class PostPhotosController < ApplicationController
 
   def create
     @post = PostPhoto.new(post)
-    if @post.save
-      redirect_to @post, action: :show
-    else
-      render :new
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @post, notice: 'Park was successfully created.' }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 
