@@ -15,7 +15,7 @@ database:
 
 test:
   override:
-    - docker run -it --link my-db:db eiel/parkmap rake
+    - docker run -it --link my-db:db -e CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN -e CI=true eiel/parkmap rake
 
 deployment:
   docker:

@@ -71,4 +71,4 @@ gem 'mini_magick'
 gem 'fog'
 gem 'jquery-fileupload-rails'
 
-gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'coveralls', require: false
