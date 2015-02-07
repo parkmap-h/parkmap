@@ -7,5 +7,10 @@ $ ->
         data.context = $('<span/>').text('Uploading...').appendTo($message);
         data.submit()
       done: (e,data) ->
-        console.log(data.result)
         data.context.html('<img src="'+ data.result.photo.thumb_url + '" \>');
+      error: (e,data) ->
+        $alert = $(".alert")
+        $alert.empty()
+        console.log(data)
+        $.each e.responseJSON, (index,message) ->
+          $alert.append($("<p \>").text(message))
