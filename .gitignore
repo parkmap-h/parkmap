@@ -20,4 +20,4 @@ public/uploads
 .idea/
 .envrc
 .vagrant
-
+coverage
