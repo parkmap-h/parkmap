@@ -1,0 +1,38 @@
+#map-canvas {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.home-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    line-height: 2;
+    font-size: 10px;
+    text-align: center;
+}
+
+.home-submit {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    height: 44px;
+}
+
+.home-distance {
+    position: absolute;
+    right: 60px;
+    bottom: 40px;
+    background-color: white;
+    padding: 4px;
+}

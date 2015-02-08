@@ -1,6 +1,6 @@
-h1 近場の駐車場を探せるサービス
+h1.home-title parkmap
 
-#map-canvas style="width: 320px; height: 320px"
+#map-canvas
 
 
 - place = Place.movinon
@@ -10,10 +10,12 @@ h1 近場の駐車場を探せるサービス
   | 経度
   = text_field_tag('latitude',place.latitude)
   br
-  = text_field_tag('distance',500)
-  | m以内
+  .home-distance
+    = text_field_tag('distance',500)
+    | m以内
   br
-  = submit_tag('検索')
+  .home-submit
+    = submit_tag('検索')
 
 ul#parks
 
