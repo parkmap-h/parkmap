@@ -74,6 +74,13 @@ $ boot2docker ip
 192.168.59.103
 ```
 
+アプリケーションの更新する場合は以下のコマンドを実行する
+```bash
+$ fig build
+$ boot2docker restart
+
+```
+
 ## <a name="3">セットアップ(Vagrant編)</a>
 
 # 参照
