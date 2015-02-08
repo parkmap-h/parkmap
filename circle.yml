@@ -1,0 +1,24 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t eiel/parkmap .
+    - bin/docker_push
+
+database:
+  override:
+    - docker run -d --name my-db mdillon/postgis:9.4; sleep 10
+    - docker run -it --link my-db:db -e RAILS_ENV="test" eiel/parkmap rake db:create db:schema:load --trace
+
+test:
+  override:
+    - docker run -it --link my-db:db -e CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN -e CI=true eiel/parkmap rake
+
+deployment:
+  docker:
+    branch: master
+    commands:
+      - docker push eiel/parkmap

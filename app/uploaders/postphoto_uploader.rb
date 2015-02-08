@@ -4,11 +4,28 @@ class PostphotoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+
+  process resize_to_fit: [1280,1280]
+
+  version :mini do
+    process resize_to_fill: [640,480]
+  end
+
+  version :thumb do
+    process resize_to_fill: [80,80]
+  end
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  storage :fog
+  # if Rails.env.production?
+  #   if ENV['GOOGLE_STORAGE_ID'] == nil && ENV['GOOGLE_STORAGE_KEY'] == nil
+  #     raise '環境変数 GOOGLE_STORAGE_IDとGOOGLE_STORAGE_KEYを設定してください'
+  #   end
+  #   storage :fog
+  # else
+  #   storage :file
+  # end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

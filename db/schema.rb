@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125001517) do
+ActiveRecord::Schema.define(version: 20150203110243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "park_photos", force: true do |t|
+    t.integer  "park_id",       null: false
+    t.integer  "post_photo_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "park_photos", ["park_id"], :name => "index_park_photos_on_park_id"
+  add_index "park_photos", ["post_photo_id"], :name => "index_park_photos_on_post_photo_id"
 
   create_table "parks", force: true do |t|
     t.string   "name",                                                                null: false

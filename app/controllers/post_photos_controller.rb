@@ -1,6 +1,6 @@
 class PostPhotosController < ApplicationController
   def index
-    @posts = PostPhoto.all
+    @posts = PostPhoto.no_relation.reverse_order
   end
 
   def new
@@ -9,15 +9,32 @@ class PostPhotosController < ApplicationController
 
   def create
     @post = PostPhoto.new(post)
-    if @post.save
-      redirect_to @post, action: :show
-    else
-      render :new
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @post, notice: 'Park was successfully created.' }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new }
+        format.json { render json: @post.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
     @post = PostPhoto.find(params[:id])
+  end
+
+  def edit
+    @post = PostPhoto.find(params[:id])
+  end
+
+  def update
+    @post = PostPhoto.find(params[:id])
+    if @post.update(post)
+      redirect_to action: :index
+    else
+      render :edit
+    end
   end
 
   private

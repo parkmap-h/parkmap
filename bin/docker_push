@@ -1,0 +1,11 @@
+#!/bin/sh
+
+IMAGE_NAME="eiel/parkmap"
+
+IMAGE_NAME_SHA=$IMAGE_NAME:COMMIT_$(git rev-parse HEAD)
+IMAGE_NAME_BRANCH=$IMAGE_NAME:$(git rev-parse --abbrev-ref HEAD)
+
+docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+docker tag $IMAGE_NAME $IMAGE_NAME_SHA
+docker tag $IMAGE_NAME $IMAGE_NAME_BRANCH
+docker push $IMAGE_NAME_SHA $IMAGE_NAME_BRANCH

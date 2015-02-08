@@ -1,11 +1,17 @@
+h1 登録待ちの写真
+
 table
   - @posts.each do |post|
     tr
       td
-        = image_tag post.photo.url, size: "100x100"
+        = image_tag post.photo.thumb.url, size: "80x80"
       td
         ul
           li 緯度 #{post.geog.longitude}
           li 経度 #{post.geog.latitude}
       td
         = post.note
+      td
+        a href=new_post_photo_park_path(post) 登録する
+      td
+        a href=edit_post_photo_path(post) 編集する

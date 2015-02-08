@@ -58,12 +58,17 @@ end
 group :production do
   gem "puma"
   gem "rails_12factor"
+  gem "newrelic_rpm"
 end
 
 gem "slim-rails"
-gem "newrelic_rpm"
 gem 'activerecord-postgis-adapter'
 gem 'squeel'
 
 gem 'carrierwave'
 gem 'exifr'
+gem 'mini_magick'
+gem 'fog'
+gem 'jquery-fileupload-rails'
+
+gem 'coveralls', require: false
