@@ -20,7 +20,6 @@
 # 構成
 + [セットアップ(ローカル環境編)](#1)
 + [セットアップ(Docker編)](#2)
-+ [セットアップ(Vagrant編)](#3)
 
 # 詳細
 ## <a name="1">セットアップ</a>
@@ -84,8 +83,6 @@ $ boot2docker ip
 $ fig build
 $ boot2docker restart
 ```
-
-## <a name="3">セットアップ(Vagrant編)</a>
 
 # 参照
 + [PostGISを試してみる](http://blog.eiel.info/blog/2014/12/11/postgis-abc/)
