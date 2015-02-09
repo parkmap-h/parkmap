@@ -9,20 +9,20 @@
 広島の近隣の駐車場を探せるようにする
 
 # 前提
-| ソフトウェア     | バージョン    | 備考         |
-|:---------------|:-------------|:------------|
-| OS X           |10.8.5        |             |
-| ruby      　　 |2.2.0        |             |
-| rails     　　 |4.1.8        |             |
-| docker    　　 |1.4.1        |             |
-| fig       　　 |1.0.1        |             |
-| postgres (PostgreSQL)    　　 |9.3.5        |             |
+| ソフトウェア   | バージョン  | 備考        |
+|:---------------|:------------|:------------|
+| ruby      　　 | 2.2.0       |             |
+| rails     　　 | 4.1.8       |             |
+| postgres (PostgreSQL)   　　 |9.3.5        |             |
 # 構成
 + [セットアップ(ローカル環境編)](#1)
-+ [セットアップ(Docker編)](#2)
++ [セットアップ(Docker on Mac編)](#2)
++ [セットアップ(Docker on Linux編)](#3)
 
 # 詳細
-## <a name="1">セットアップ</a>
+## <a name="1">セットアップ(ローカル環境編)</a>
+### rubyやrailsはインストール済とする
+
 ### Railsの環境をセットアップする
 ```bash
 $ bundle install
@@ -47,11 +47,19 @@ $ bin/rails s
 ```
 起動したらブラウザから_http://localhost:3000/_にアクセスして動作を確認する
 
-## <a name="2">セットアップ(Docker編)</a>
-Dockerをインストールしていない場合は以下のリンクから対応するインストーラをダウンロードする
+## <a name="2">セットアップ(Docker on Mac編)</a>
+
+### 前提
+| ソフトウェア   | バージョン   | 備考        |
+|:---------------|:-------------|:------------|
+| OS X           |10.8.5        |             |
+| docker    　　 |1.4.1         |             |
+| fig       　　 |1.0.1         |             |
+
+### Dockerをインストールしていない場合は以下のリンクから対応するインストーラをダウンロードする
 https://docs.docker.com/installation/#installation
 
-Dockerデーモンを起動する
+### Dockerデーモンを起動する
 ```
 $ boot2docker up
 ```
@@ -60,7 +68,7 @@ $ boot2docker up
 $(boot2docker shellinit)
 ```
 
-Dockerを利用して開発する場合
+### Dockerを利用して開発する場合
 
 あらかじめ fig をインストールしておく。
 ```
@@ -82,6 +90,65 @@ $ boot2docker ip
 ```bash
 $ fig build
 $ boot2docker restart
+```
+
+## <a name="3">セットアップ(Docker on Linux編)</a>
+
+### 前提
+| ソフトウェア   | バージョン   | 備考        |
+|:---------------|:-------------|:------------|
+| Linux(CentOS)  | 6.6          | 下記ソフトが動作すれば、CentOSに限らない|
+| docker    　　 | 1.5          |             |
+| fig       　　 | 1.0.0        |             |
+
+### Dockerインストール(インストールしていない場合)
+```
+$ sudo rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+$ sudo yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+$ sudo yum -y install docker-io 
+```
+
+### Dockerデーモンを起動する
+```
+$ sudo service docker start
+$ sudo chkconfig docker on
+```
+
+### figインストール(インストールしていない場合)
+```
+$ sudo curl -L https://github.com/docker/fig/releases/download/1.0.1/fig-`uname -s`-`uname -m` > /usr/local/bin/fig; chmod +x /usr/local/bin/fig
+```
+
+### 開発環境起動
+git pull後は最初にbuildする
+```
+$ fig build
+$ fig up
+```
+
+### ターゲットAP起動
+```
+$ fig run web bin/rake db:setup
+$ zcat coinpark.XXX.sql.gz|fig run web bin/rails dbconsole
+```
+    coinpark.XXX.sql.gzは、実験用の初期データをmysqldumpし、gzipアーカイブしたもの
+
+### ターゲットAPへのアクセス
+起動したホスト(例:basehost)の3000にポートマップされているので、
+起動したホストにアクセスできるブラウザから
+`http://basehost:3000/`
+にアクセスして動作確認可能
+
+### nsenterのインストール(インストールしていない場合)
+コンテナでsshを動かしていなくても、コンテナへのシェルアクセスを可能にする
+nsenterをインストールする
+```
+$ docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
+```
+### ターゲットマシン(コンテナ)へのシェルアクセス
+```
+$ sudo docker-enter parkmap_web_1
+root@parkmap_web_1# 
 ```
 
 # 参照
