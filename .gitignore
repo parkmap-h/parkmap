@@ -15,5 +15,9 @@
 /log/*.log
 /tmp
 public/uploads
+
+.versions.conf
+.idea/
 .envrc
 .vagrant
+coverage
