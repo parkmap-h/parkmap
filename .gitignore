@@ -21,3 +21,6 @@ public/uploads
 .envrc
 .vagrant
 coverage
+
+# Ignore backup files
+*~
