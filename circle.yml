@@ -3,9 +3,16 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "~/docker"
   override:
     - docker info
+    - if [[ -e ~/docker/postgis.tar ]]; then docker load -i ~/docker/postgis.tar; fi
+    - docker pull mdillon/postgis:9.4
+    - mkdir -p ~/docker; docker save mdillon/postgis:9.4 > ~/docker/postgis.tar
+    - if [[ -e ~/docker/rails.tar ]]; then docker load -i ~/docker/rails.tar; fi
     - docker build -t eiel/parkmap .
+    - mkdir -p ~/docker; docker save rails:onbuild > ~/docker/rails.tar
     - bin/docker_push
 
 database:
