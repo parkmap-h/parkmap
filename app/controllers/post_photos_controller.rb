@@ -3,6 +3,11 @@ class PostPhotosController < ApplicationController
     @posts = PostPhoto.no_relation.reverse_order
   end
 
+  def recent
+    @posts = PostPhoto.all.order(:id).reverse_order.limit(20)
+    render :index
+  end
+
   def new
     @post = PostPhoto.new
   end
