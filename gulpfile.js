@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 
 var config = {
-  dest: '_site'
+  dest: 'public'
 };
 
 // Static server
