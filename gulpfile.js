@@ -55,4 +55,5 @@ gulp.task('html', function() {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('default',['js','css','html','server']);
+gulp.task('build', ['js','css','html']);
+gulp.task('default',['build','server']);

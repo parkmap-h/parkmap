@@ -7,6 +7,12 @@ var jquery = require('jquery');
 var Map = ReactGoogleMaps.Map;
 var Marker = ReactGoogleMaps.Marker;
 
+var baseurl = 'http://localhost:3000';
+var production_host = 'parkmap.eiel.info';
+if (location.hostname === production_host) {
+    baseurl = 'http://' + production_host;
+}
+
 var Parkmap = React.createClass({
   getInitialState: function() {
     return {
@@ -18,7 +24,7 @@ var Parkmap = React.createClass({
   handleSearch:  function() {
    var that = this;
    jquery.post(
-     'http://localhost:3000/.json',
+     baseurl + '/.json',
      {distance: 300,longitude: this.state.target.D, latitude: this.state.target.k},
      function (data){
        that.setState({parks: data});
@@ -27,12 +33,10 @@ var Parkmap = React.createClass({
   },
 
   handleClick: function(e) {
-    console.log(e.latLng);
     this.setState({target: e.latLng});
   },
 
   handleDrag: function(e) {
-    console.log(e.latLng);
     this.setState({target: e.latLng});
   },
 
