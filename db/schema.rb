@@ -17,30 +17,30 @@ ActiveRecord::Schema.define(version: 20150203110243) do
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "park_photos", force: true do |t|
+  create_table "park_photos", force: :cascade do |t|
     t.integer  "park_id",       null: false
     t.integer  "post_photo_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "park_photos", ["park_id"], :name => "index_park_photos_on_park_id"
-  add_index "park_photos", ["post_photo_id"], :name => "index_park_photos_on_post_photo_id"
+  add_index "park_photos", ["park_id"], name: "index_park_photos_on_park_id", using: :btree
+  add_index "park_photos", ["post_photo_id"], name: "index_park_photos_on_post_photo_id", using: :btree
 
-  create_table "parks", force: true do |t|
-    t.string   "name",                                                                null: false
-    t.spatial  "geog",       limit: {:srid=>4326, :type=>"point", :geographic=>true}, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "parks", force: :cascade do |t|
+    t.string    "name",                                                                null: false
+    t.geography "geog",       limit: {:srid=>4326, :type=>"point", :geographic=>true}, null: false
+    t.datetime  "created_at"
+    t.datetime  "updated_at"
   end
 
-  create_table "post_photos", force: true do |t|
+  create_table "post_photos", force: :cascade do |t|
     t.string   "photo",                                              null: false
+    t.geometry "geog",            limit: {:srid=>0, :type=>"point"}, null: false
     t.float    "image_direction",                                    null: false
     t.text     "note",                                               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "geog",            limit: {:srid=>0, :type=>"point"}, null: false
   end
 
 end

@@ -43,6 +43,7 @@ group :development do
   gem "bullet"
   gem "quiet_assets"
   gem "spring-commands-rspec"
+  gem 'web-console'
 end
 
 group :development, :test do
