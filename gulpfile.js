@@ -49,6 +49,7 @@ gulp.task('css', function() {
 var jade = require('gulp-jade');
 gulp.task('html', function() {
   gulp.src('src/html/*.jade')
+    .pipe(plumber())
     .pipe(jade())
     .pipe(gulp.dest(config.dest))
     .pipe(reload({stream: true}));
