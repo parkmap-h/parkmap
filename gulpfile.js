@@ -24,7 +24,6 @@ var reload = browserSync.reload;
 var react = require('gulp-react');
 var browserify = require('gulp-browserify');
 var plumber = require('gulp-plumber');
-
 gulp.task('js', function() {
   gulp.src('src/js/main.jsx')
     .pipe(plumber())
