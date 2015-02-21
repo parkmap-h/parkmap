@@ -27,7 +27,7 @@ var Parkmap = React.createClass({
      baseurl + '/.json',
      {distance: 300,longitude: this.state.target.D, latitude: this.state.target.k},
      function (data){
-       that.setState({parks: data});
+       that.setState({parks: data.features});
      }
    );
   },
@@ -41,9 +41,11 @@ var Parkmap = React.createClass({
   },
 
   render: function() {
-    var marks = this.state.parks.map(function (park) {
+    var marks = this.state.parks.map(function (feature) {
+      var coord = feature.geometry.coordinates;
+      var park = feature.properties;
       return (
-        <Marker position={new GoogleMapsAPI.LatLng(park.latitude, park.longitude)} />
+        <Marker key={park.id} position={new GoogleMapsAPI.LatLng(coord[1], coord[0])} />
       );});
     return <div>
 <button onClick={this.handleSearch} className={"search-button"}> 検索 </button>
