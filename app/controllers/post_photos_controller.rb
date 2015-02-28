@@ -1,10 +1,10 @@
 class PostPhotosController < ApplicationController
   def index
-    @posts = PostPhoto.no_relation.reverse_order
+    @posts = PostPhoto.no_relation.reverse_order.page params[:page]
   end
 
   def recent
-    @posts = PostPhoto.all.order(:id).reverse_order.limit(20)
+    @posts = PostPhoto.all.order(:id).reverse_order.page params[:page]
     render :index
   end
 
