@@ -72,3 +72,4 @@ gem 'fog'
 gem 'jquery-fileupload-rails'
 
 gem 'coveralls', require: false
+gem 'kaminari'

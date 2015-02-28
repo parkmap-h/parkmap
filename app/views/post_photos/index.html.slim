@@ -1,5 +1,7 @@
 h1 登録待ちの写真
 
+= paginate @posts
+
 table
   - @posts.each do |post|
     tr
