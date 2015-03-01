@@ -51,5 +51,10 @@ module Coinpark
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Credentials' => 'true',
+      'Access-Control-Allow-Origin' => 'http://localhost:8888',
+      'Access-Control-Request-Method' => '*'
+    }
   end
 end
