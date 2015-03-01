@@ -5,7 +5,7 @@ class ParksController < ApplicationController
   # GET /parks
   # GET /parks.json
   def index
-    @parks = Park.all
+    @parks = Park.order(:id).reverse_order.page params[:page]
   end
 
   # GET /parks/1
