@@ -1,6 +1,4 @@
 class ParksController < ApplicationController
-  respond_to :html, :json
-
   before_action :set_park, only: [:show, :edit, :update, :destroy]
   before_action :photo, only: [:new, :create]
 
