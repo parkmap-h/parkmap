@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe "Posts", :type => :request do
   describe "GET /posts" do
     it "works! (now write some real specs)" do
+      PostPhoto.create!(photo: File.open(Rails.root.join("spec/files/test.jpg")),
+                       geog: Place.billing_510 ,
+                       image_direction: 0,
+                       note: '')
       get post_photos_path
       expect(response.status).to be(200)
     end
