@@ -17,15 +17,22 @@ class PostphotoUploader < CarrierWave::Uploader::Base
   end
 
   # Choose what kind of storage to use for this uploader:
-  storage :fog
-  # if Rails.env.production?
-  #   if ENV['GOOGLE_STORAGE_ID'] == nil && ENV['GOOGLE_STORAGE_KEY'] == nil
-  #     raise '環境変数 GOOGLE_STORAGE_IDとGOOGLE_STORAGE_KEYを設定してください'
-  #   end
-  #   storage :fog
-  # else
-  #   storage :file
-  # end
+  is_fog = false
+  if ENV['GOOGLE_STORAGE_ID'] != nil && ENV['GOOGLE_STORAGE_KEY'] != nil
+    is_fog = true unless Rails.env.test?
+  end
+
+  if Rails.env.production?
+    unless is_fog
+      raise '環境変数 GOOGLE_STORAGE_IDとGOOGLE_STORAGE_KEYを設定してください'
+    end
+  end
+
+  if is_fog
+    storage :fog
+  else
+    storage :file
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
