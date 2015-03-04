@@ -1,11 +1,11 @@
-FROM rails:onbuild
+FROM eiel/parkmap:bundle
 
-ENV POSTGRES_USER postgres
-ENV POSTGRES_PASSWORD password
+COPY . /usr/src/app
 
-RUN apt-get update && apt-get -y install npm && rm -rf /var/lib/apt/lists/*
+RUN bundle install
 RUN npm install
 RUN nodejs node_modules/gulp/bin/gulp.js build --production
 RUN rake assets:precompile
 
+EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
