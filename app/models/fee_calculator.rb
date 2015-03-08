@@ -47,9 +47,8 @@ class FeeCalculator
   end
 
   def self.create_range(time,start_hour,start_min,end_hour,end_min)
-    t = time
-    start = DateTime.new(t.year, t.month, t.day, start_hour, start_min)
-    _end = DateTime.new(t.year, t.month, t.day, end_hour, end_min)
+    start = time.change(hour: start_hour, minute: start_min)
+    _end = time.change(hour:  end_hour, minute: end_min)
     start..._end
   end
 
