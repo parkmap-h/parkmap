@@ -39,6 +39,16 @@ class Park < ActiveRecord::Base
     st_distance
   end
 
+  # 今から1時間停めたときの料金
+  def hour_fee
+    case fee['type']
+    when 'text'
+      nil
+    else
+      FeeCalculator.new(fee).hour_fee
+    end
+  end
+
   # factory
   def self.create_nobori_10
     Park.create(
