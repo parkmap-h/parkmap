@@ -13,5 +13,6 @@ json.features @parks do |park|
     json.photos park.photos.map {|photo| photo.photo.url}
     json.mini_photos park.photos.map {|photo| photo.photo.mini.url}
     json.thumb_photos park.photos.map {|photo| photo.photo.thumb.url}
+    json.hour_fee park.hour_fee
   end
 end
