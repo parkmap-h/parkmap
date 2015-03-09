@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   end
 
   def search
-    @parks = Park.search(params)
+    @parks = Park.search(params).includes(:photos)
   end
 end
