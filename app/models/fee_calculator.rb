@@ -10,7 +10,7 @@ class FeeCalculator
       fee += attr['fee']
     end
     if attr.key? 'max'
-      fee = attr['max']
+      fee = attr['max'] if fee > attr['max']
     end
     [time, fee]
   end
