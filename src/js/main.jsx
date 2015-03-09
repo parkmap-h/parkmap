@@ -14,14 +14,19 @@ if (location.hostname === production_host) {
 }
 
 var Park = React.createClass({
-  render: function() {
-    return (<div className="park">
-  <span>{this.props.name}</span>
-  <span> {this.props.distance}</span>
-  <br/>
-  <img src={this.props.src} />
-</div>);
-  }
+    render: function() {
+        var fee = "料金情報がありません。"
+        if (this.props.fee) {
+            fee = "今から1時間停めると" + this.props.fee + "円";
+        }
+        return <div className="park">
+            <span>{this.props.name}</span>
+            <span> {this.props.distance}</span>
+            <span> {fee}</span>
+            <br/>
+            <img src={this.props.src} />
+        </div>;
+    }
 });
 
 var Parkmap = React.createClass({
@@ -58,7 +63,12 @@ var Parkmap = React.createClass({
   render: function() {
     var parks = this.state.parks.map(function (feature) {
       var park = feature.properties;
-      return <Park key={park.id} src={park.mini_photos[0]} name={park.name} distance={park.distance_human}/>;
+      return <Park
+        key={park.id}
+        src={park.mini_photos[0]}
+        name={park.name}
+        fee={park.hour_fee}
+        distance={park.distance_human} />;
     });
     var marks = this.state.parks.map(function (feature) {
       var coord = feature.geometry.coordinates;
