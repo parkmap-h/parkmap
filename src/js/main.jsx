@@ -13,18 +13,24 @@ if (location.hostname === production_host) {
     baseurl = 'http://' + production_host;
 }
 
+var pins = []
+
 var Park = React.createClass({
-    render: function() {
-        var fee = "料金情報がありません。"
-        if (this.props.fee) {
-            fee = "今から1時間停めると" + this.props.fee + "円";
-        }
-        return <div className="park">
-            <span>{this.props.name}</span>
-            <span> {this.props.distance}</span>
-            <span> {fee}</span>
-            <br/>
+  render: function() {
+    var fee = "料金情報がありません。"
+      if (this.props.fee) {
+        fee = "今から1時間停めると" + this.props.fee + "円かかります。";
+      }
+      return <div className="park">
+	  <div className="header">
+            <span className="number">{this.props.number}</span>
+            <span className="name">{this.props.name}</span>
+            <span className="distance">{this.props.distance}</span>
+	  </div>
+          <div className="body">
             <img src={this.props.src} />
+            <span className="fee">{fee}</span>
+	  </div>
         </div>;
     }
 });
@@ -65,6 +71,7 @@ var Parkmap = React.createClass({
       var park = feature.properties;
       return <Park
         key={park.id}
+        number={park.id}
         src={park.mini_photos[0]}
         name={park.name}
         fee={park.hour_fee}
@@ -76,22 +83,25 @@ var Parkmap = React.createClass({
       return (
         <Marker key={park.id} position={new GoogleMapsAPI.LatLng(coord[1], coord[0])} />
       );});
+      if (marks.length == 0) {
+	  marks = (<p className="help">目的地を設定して検索をしてください。</p>)
+      }
     return <div>
-<button onClick={this.handleSearch} className={"search-button"}> 検索 </button>
-<Map
-  initialZoom={17}
-  initialCenter={this.state.target}
-  width={'100%'}
-  height={'100%'}
-  onClick={this.handleClick}
->
-   <Marker position={this.state.target} opacity={0.5} title={'目的地'} draggable={true} onDrag={this.handleDrag}/>
-  {marks}
-</Map>
-<div className={"parks"}>
-  {parks}
-</div>
-</div>;
+        <button onClick={this.handleSearch} className={"search-button"}> 検索           </button>
+        <Map
+            initialZoom={16}
+            initialCenter={this.state.target}
+            width={'100%'}
+            height={'100%'}
+            onClick={this.handleClick}
+            >
+            <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleDrag}/>
+            {marks}
+        </Map>
+        <div className={"parks"}>
+            {parks}
+        </div>
+    </div>;
   }
 });
 
