@@ -13,9 +13,10 @@ if (location.hostname === production_host) {
   baseurl = 'http://' + production_host;
 }
 
-var pins = []
-
 var Park = React.createClass({
+  onMarkerClick: function(e) {
+    this.props.onMarkerClick(this.props.number);
+  },
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
@@ -30,6 +31,7 @@ var Park = React.createClass({
       <div className="body">
         <img src={this.props.src} />
         <span className="fee">{fee}</span>
+        <button className="marker" onClick={this.onMarkerClick}>マーク</button>
       </div>
     </div>;
   }
@@ -39,6 +41,7 @@ var Parkmap = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
     return {
+      marks: [],
       parks: [],
       target: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
       center: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
@@ -90,7 +93,16 @@ var Parkmap = React.createClass({
     this.setState({target: e.latLng});
   },
 
+  handleMarkerClick: function(park_id) {
+    var parks = this.state.parks.filter(
+      function (park) { return park.properties.id == park_id; }
+    );
+    console.log(park_id);
+    this.setState({marks: this.state.marks.concat(parks)});
+  },
+
   render: function() {
+    var that = this;
     var parks = this.state.parks.map(function (feature) {
       var park = feature.properties;
       return <Park
@@ -99,13 +111,19 @@ var Parkmap = React.createClass({
         src={park.mini_photos[0]}
         name={park.name}
         fee={park.hour_fee}
-        distance={park.distance_human} />;
+        distance={park.distance_human}
+        onMarkerClick={that.handleMarkerClick}
+      />;
     });
-    var marks = this.state.parks.map(function (feature) {
+    var marks = this.state.marks.map(function (feature) {
       var coord = feature.geometry.coordinates;
       var park = feature.properties;
       return (
-        <Marker key={park.id} position={new GoogleMapsAPI.LatLng(coord[1], coord[0])} />
+        <Marker
+          key={park.id}
+          position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
+          title={park.name}
+        />
       );
     });
     if (marks.length == 0) {
