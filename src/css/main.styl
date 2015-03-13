@@ -33,9 +33,11 @@ body
   z-index 1
 
 .park
+  position relative
   height 108px
   padding 4px 4px
   margin 0
+  background-color white
 
 .park:nth-child(even)
   background-color #eeeef3
@@ -85,6 +87,14 @@ body
 
 .park .fee
   line-height 12px
+
+.park .marker
+  display block
+  position absolute
+  height 44px
+  width 66px
+  bottom 20px
+  right 10px
 
 .help
   font-size 14px
