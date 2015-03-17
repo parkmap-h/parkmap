@@ -20,6 +20,8 @@ ul
   .field
     = f.label :latitude
     = f.text_field :latitude, value: @photo.geog.latitude
-    .actions = f.submit 'Save'
+  #map-canvas
+
+  .actions = f.submit 'Save'
 
 = image_tag @photo.photo.url

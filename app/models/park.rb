@@ -9,8 +9,10 @@ class Park < ActiveRecord::Base
 
   attr_writer :longitude, :latitude
 
-  before_create do
-    self.geog = self.class.point(@longitude,@latitude)
+  before_save do
+    if @longitude && @latitude
+      self.geog = self.class.point(@longitude, @latitude)
+    end
   end
 
   scope :within_range ,-> point, distance {
