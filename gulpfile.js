@@ -38,7 +38,7 @@ gulp.task('js', function() {
 
 var stylus = require('gulp-stylus');
 gulp.task('css', function() {
-  gulp.src('src/css/main.styl')
+  gulp.src('src/css/*.styl')
     .pipe(plumber())
     .pipe(stylus())
     .pipe(gulp.dest(config.dest + '/css'))
@@ -47,7 +47,7 @@ gulp.task('css', function() {
 
 var jade = require('gulp-jade');
 gulp.task('html', function() {
-  gulp.src('src/html/*.jade')
+  gulp.src('src/html/**/*.jade')
     .pipe(plumber())
     .pipe(jade())
     .pipe(gulp.dest(config.dest))
