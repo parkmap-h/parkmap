@@ -3,16 +3,43 @@ html(lang="ja")
   head
     meta(name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no")
     meta(charset="UTF-8")
-    link(rel="stylesheet" href="css/main.css")
+    meta(name="description" content="みんなで作る有料駐車場マップ。行きたいところに近くて安い駐車場がみつけられます")
+    meta(name="keywords" content="駐車場,タイムズ,コインパーキング,広島")
+    title パークマップ広島
+    link(rel="stylesheet" href="/css/landing.css")
   body
-    div#map
-    script(src="https://maps.googleapis.com/maps/api/js?v=3.exp")
-    script(src="js/main.js")
+    nav.global-nav
+      h1 パークマップ広島
+
+    div.content-wrap
+      h1.hero あなたのための駐車場が見つかる
+      p 車で街中へ。どこに停めるのがよくわからなくて、目的から離れているいつもの駐車場に停めてしまう。パークマップ広島はそんな人を応援するサービスです。目的地に近い駐車場を簡単に見つけられます。
+      a.button.main(href="/map/") パークマップを利用する
+
+      h2 目的地が地図で設定できる
+      p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
+      a(href="#") もっと詳しく
+
+      h2 利用料金の予測ができる
+      p 検索結果には利用料金の予測も含まれます。あなたの目的地から近くて安い駐車場が簡単に見つけられます。
+      a(href="#") もっと詳しく
+
+      h2 みんなでつくる
+      p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
+      a(href="#") もっと詳しく
+
+      h1 免責事項
+      p.
+        このサイトで提供される情報はユーザによって提供された情報を元に構築したものです。正確な情報や支払い料金を保証するものではありません。
+
+    aside.footer
+      p.copyright Copyright 2014-2015 パークマップ広島
+
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-60529914-1', 'auto');
-        ga('send', 'pageview');
+      ga('create', 'UA-60529914-1', 'auto');
+      ga('send', 'pageview');
