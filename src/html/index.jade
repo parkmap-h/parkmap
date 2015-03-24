@@ -18,15 +18,13 @@ html(lang="ja")
 
       h2 目的地が地図で設定できる
       p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
-      a(href="#") もっと詳しく
 
       h2 利用料金の予測ができる
       p 検索結果には利用料金の予測も含まれます。あなたの目的地から近くて安い駐車場が簡単に見つけられます。
-      a(href="#") もっと詳しく
 
       h2 みんなでつくる
       p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
-      a(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
+      a.build(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
 
       h1 免責事項
       p.
@@ -43,3 +41,6 @@ html(lang="ja")
 
       ga('create', 'UA-60529914-1', 'auto');
       ga('send', 'pageview');
+
+      document.querySelector('.build').addEventListener('click',function () { ga('send', 'event', 'button', 'click', 'build') },false);
+      document.querySelector('.main').addEventListener('click',function () { ga('send', 'event', 'button', 'click', 'main') },false);
