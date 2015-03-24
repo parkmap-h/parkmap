@@ -49,6 +49,7 @@ var Parkmap = React.createClass({
   },
 
   handleSearch:  function() {
+    ga('send', 'event', 'button', 'click', 'search');
     var that = this;
     var success = function (data){
       that.setState(
