@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 require 'rails_helper'
 
 RSpec.describe FeeCalculator, :type => :model do
   let(:calculator) { FeeCalculator.new(attr) }
   describe '#hour_fee' do
     subject { calculator.hour_fee(datetime) }
-    let(:datetime) { DateTime.now }
+    let(:datetime) { Time.zone.now }
 
     context '30分200円の時' do
       let(:attr) do

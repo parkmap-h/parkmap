@@ -75,7 +75,7 @@ class FeeCalculator
     fees.reduce(:+)
   end
 
-  def hour_fee(time=DateTime.now)
+  def hour_fee(time= Time.zone.now)
     calc(time...time.since(1.hour))
   end
 
