@@ -9,13 +9,15 @@ class Park < ActiveRecord::Base
 
   attr_writer :longitude, :latitude
 
-  before_create do
-    self.geog = self.class.point(@longitude,@latitude)
+  before_save do
+    if @longitude && @latitude
+      self.geog = self.class.point(@longitude, @latitude)
+    end
   end
 
   scope :within_range ,-> point, distance {
     Park.where{st_distance(geog, point) < distance}
-      .select{[st_distance(geog, point),name,geog,id]}
+      .select{[st_distance(geog, point),'*']}
   }
 
   def self.point(longitude, latitude)
@@ -37,6 +39,16 @@ class Park < ActiveRecord::Base
 
   def distance
     st_distance
+  end
+
+  # 今から1時間停めたときの料金
+  def hour_fee
+    case fee['type']
+    when 'text'
+      nil
+    else
+      FeeCalculator.new(fee).hour_fee
+    end
   end
 
   # factory

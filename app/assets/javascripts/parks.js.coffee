@@ -14,8 +14,8 @@ click = (event) ->
     position: event.latLng,
     draggable: false,
     map: map,
-  $("#longitude").val(event.latLng.D)
-  $("#latitude").val(event.latLng.k)
+  $("#park_longitude").val(event.latLng.D)
+  $("#park_latitude").val(event.latLng.k)
 
 result = (event,data,status) ->
   for park in parks
@@ -33,9 +33,11 @@ result = (event,data,status) ->
     $parks.append($park)
 
 initialize = ->
-  position = new google.maps.LatLng(34.393056, 132.465511)
+  lat = $("#park_latitude").val()
+  long =  $("#park_longitude").val()
+  position = new google.maps.LatLng(lat,long)
   mapOptions =
-    zoom: 15
+    zoom: 19
     center: position
 
   map = new google.maps.Map(document.getElementById('map-canvas'),

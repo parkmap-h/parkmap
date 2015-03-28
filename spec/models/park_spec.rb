@@ -10,4 +10,17 @@ RSpec.describe Park, :type => :model do
     Park.create_nobori_10
     expect(Park.within_range(Place.shakehands,100).count).to eq(0)
   end
+
+  describe '#hour_fee' do
+    subject { Park.new({fee: fee}).hour_fee }
+    context "feeはtext" do
+      let(:fee) { {type: 'text',text: ''} }
+      it { should eq(nil) }
+    end
+
+    context "feeがbasic" do
+      let(:fee) { {type: 'basic',per_minute: 30, fee: 200} }
+      it { should eq(400) }
+    end
+  end
 end
