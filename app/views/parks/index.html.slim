@@ -18,6 +18,7 @@ table
         td = park.name
         td = park.longitude
         td = park.latitude
+        td = park.hour_fee ? "1時間 #{park.hour_fee} 円" : "料金情報未登録"
         td = link_to 'Show', park
         td = link_to 'Edit', edit_park_path(park)
         td = link_to 'Destroy', park, data: {:confirm => 'Are you sure?'}, :method => :delete
