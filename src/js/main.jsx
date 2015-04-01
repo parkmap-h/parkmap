@@ -24,8 +24,10 @@ var Park = React.createClass({
     }
     return <div className="park">
       <div className="header">
-        <span className="number">{this.props.number}</span>
-        <span className="name">{this.props.name}</span>
+        <a href={"/parks/" + this.props.number} + "/edit">
+          <span className="number">{this.props.number}</span>
+          <span className="name">{this.props.name}</span>
+        </a>
         <span className="distance">{this.props.distance}</span>
       </div>
       <div className="body">
