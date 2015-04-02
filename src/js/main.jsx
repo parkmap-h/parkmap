@@ -6,6 +6,7 @@ var jquery = require('jquery');
 
 var Map = ReactGoogleMaps.Map;
 var Marker = ReactGoogleMaps.Marker;
+var OverlayView = ReactGoogleMaps.OverlayView;
 
 var baseurl = 'http://localhost:3000';
 var production_host = 'parkmap.eiel.info';
@@ -24,14 +25,15 @@ var Park = React.createClass({
     }
     return <div className="park">
       <div className="header">
-        <span className="number">{this.props.number}</span>
-        <span className="name">{this.props.name}</span>
+        <a href={"/parks/" + this.props.number + "/edit"}>
+          <span className="number">{this.props.number}</span>
+          <span className="name">{this.props.name}</span>
+        </a>
         <span className="distance">{this.props.distance}</span>
       </div>
       <div className="body">
         <img src={this.props.src} />
         <span className="fee">{fee}</span>
-        <button className="marker" onClick={this.onMarkerClick}>マーク</button>
       </div>
     </div>;
   }
@@ -44,7 +46,7 @@ var Parkmap = React.createClass({
       marks: [],
       parks: [],
       target: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
-      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
+      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511)
     };
   },
 
@@ -58,6 +60,12 @@ var Parkmap = React.createClass({
             var park_a = feature_a.properties;
             var park_b = feature_b.properties;
             return park_a.distance - park_b.distance;
+          }),
+          marks: data.features.sort(function(feature_a,feature_b) {
+            var park_a = feature_a.properties;
+            var park_b = feature_b.properties;
+            if (park_a.hour_fee === null) { return -1; }
+            return park_b.hour_fee - park_a.hour_fee;
           })
         }
       );
@@ -116,20 +124,20 @@ var Parkmap = React.createClass({
         onMarkerClick={that.handleMarkerClick}
       />;
     });
-    var marks = this.state.marks.map(function (feature) {
+    var overlays = this.state.marks.map(function (feature) {
       var coord = feature.geometry.coordinates;
       var park = feature.properties;
       return (
-        <Marker
-          key={park.id}
+        <OverlayView
+          key={"overlay-" + park.id}
+          className="fee-overlay"
+          mapPane="floatPane"
           position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
-          title={park.name}
-        />
+        >
+          <h1>{park.hour_fee ? park.hour_fee + "円" : "情報なし"}</h1>
+        </OverlayView>
       );
     });
-    if (marks.length == 0) {
-      marks = (<p className="help">目的地を設定して検索をしてください。</p>)
-    }
     return <div>
       <button className="location-button" onClick={this.handlePresentLocation}>
         現在地
@@ -144,9 +152,9 @@ var Parkmap = React.createClass({
         width={'100%'}
         height={'100%'}
         onClick={this.handleClick}
-        >
+      >
         <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleMarkerDrag}/>
-        {marks}
+        {overlays}
       </Map>
       <div className={"parks"}>
         {parks}
