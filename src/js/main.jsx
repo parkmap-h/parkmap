@@ -46,7 +46,7 @@ var Parkmap = React.createClass({
       marks: [],
       parks: [],
       target: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
-      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
+      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511)
     };
   },
 
@@ -130,7 +130,7 @@ var Parkmap = React.createClass({
       );
     });
     if (marks.length == 0) {
-      marks = (<p className="help">目的地を設定して検索をしてください。</p>)
+      marks = (<p className="help">目的地を設定して検索をしてください。</p>);
     }
     return <div>
       <button className="location-button" onClick={this.handlePresentLocation}>
