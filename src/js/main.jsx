@@ -61,11 +61,14 @@ var Parkmap = React.createClass({
             var park_b = feature_b.properties;
             return park_a.distance - park_b.distance;
           }),
-          marks: data.features.sort(function(feature_a,feature_b) {
+          marks: data.features.slice().sort(function(feature_a,feature_b) {
             var park_a = feature_a.properties;
             var park_b = feature_b.properties;
-            if (park_a.hour_fee === null) { return -1; }
-            return park_b.hour_fee - park_a.hour_fee;
+            var a = park_a.hour_fee;
+            var b = park_b.hour_fee;
+            if (a === null) { a = Number.POSITIVE_INFINITY; }
+            if (b === null) { b = Number.POSITIVE_INFINITY; }
+            return b - a;
           })
         }
       );
