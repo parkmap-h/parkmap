@@ -113,6 +113,18 @@ var Parkmap = React.createClass({
     this.setState({marks: this.state.marks.concat(parks)});
   },
 
+  handleMarkClick: function(e) {
+    var parks = this.state.parks.filter(
+      function (park) { return park.properties.id == park_id; }
+    );
+    console.log(e);
+    this.setState({marks: this.state.marks.concat(parks)});
+  },
+
+  onOverlayClick: function(park_id) {
+    this.setState({focus_park: park_id});
+  },
+
   render: function() {
     var that = this;
     var parks = this.state.parks.map(function (feature) {
@@ -130,9 +142,14 @@ var Parkmap = React.createClass({
     var overlays = this.state.marks.map(function (feature) {
       var coord = feature.geometry.coordinates;
       var park = feature.properties;
+      var onclick =  function () {
+        that.onOverlayClick(park);
+        console.log(park);
+      };
       return (
         <OverlayView
           key={"overlay-" + park.id}
+          onClick={onclick}
           className="fee-overlay"
           mapPane="floatPane"
           position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
@@ -141,6 +158,27 @@ var Parkmap = React.createClass({
         </OverlayView>
       );
     });
+    var modal = null;
+    if (this.state.focus_park) {
+      var closeModal = function() {
+        that.setState({focus_park: null});
+      };
+      var focus = this.state.focus_park;
+      modal = (<div className="modal" onClick={closeModal}>
+                 <div className="modal-main">
+                   <Park
+                    key={focus.id}
+                    number={focus.id}
+                    src={focus.mini_photos[0]}
+                    name={focus.name}
+                    fee={focus.hour_fee}
+                    distance={focus.distance_human}
+                   />
+                 </div>
+               </div>);
+    }else {
+      modal = null;
+    }
     return <div>
       <button className="location-button" onClick={this.handlePresentLocation}>
         現在地
@@ -159,9 +197,7 @@ var Parkmap = React.createClass({
         <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleMarkerDrag}/>
         {overlays}
       </Map>
-      <div className={"parks"}>
-        {parks}
-      </div>
+      {modal}
     </div>;
   }
 });
