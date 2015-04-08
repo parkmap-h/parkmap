@@ -8,6 +8,15 @@ html(lang="ja")
     title パークマップ広島
     link(rel="stylesheet" href="/css/landing.css")
   body
+    div(id="fb-root")
+    script.
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.3&appId=831188770250625";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
     .content-wrap
       nav.global-nav
         h1 パークマップ広島
@@ -26,6 +35,9 @@ html(lang="ja")
         h2 みんなでつくる
         p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
         a.build(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
+
+        .fb.
+          <div class="fb-page" data-href="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160"><a href="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160">パークマップ広島</a></blockquote></div></div>
 
         h1 免責事項
         p.
