@@ -21,6 +21,11 @@ h1 Editing park
   .field
     = f.label :fee
     = f.text_area :fee, size: '40x10'
+  .field
+    | 参考JSON
+    pre= sample_fee_json
+    a href="https://github.com/parkmap-h/parkmap/wiki/%E6%96%99%E9%87%91%E6%83%85%E5%A0%B1%E3%81%AE%E4%BD%9C%E6%88%90"
+      | より詳細情報
   .actions = f.submit 'Save'
 
 .photo
