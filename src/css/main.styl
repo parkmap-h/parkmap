@@ -32,73 +32,137 @@ body
   font-size 18px
   z-index 1
 
-.park
+.park-show
+  position relative
+  padding 4px 4px
+  margin 0
+  background-color white
+
+  .header
+    height 20px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+
+    a
+      color black
+      text-decoration none
+
+  .body
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+    margin-bottom 4px
+
+  img
+    width 100%
+    margin-bottom 4px
+
+  span
+    font-size 11px
+    margin 0
+    padding 0
+
+  .number
+    padding-right 10px
+
+  .name
+    height 12px
+    font-size 12px
+    line-height 14px
+    font-weight bold
+
+  .distance
+    font-size 8px
+    line-height 14px
+    float right
+    position relative
+    top 0px
+    right 4px
+
+  .fee
+    margin-left 4px
+    margin-right 4px
+    line-height 12px
+
+  .marker
+    display block
+    position absolute
+    height 44px
+    width 66px
+    bottom 20px
+    right 10px
+
+.park-list
   position relative
   height 108px
   padding 4px 4px
   margin 0
   background-color white
 
-.park:nth-child(even)
-  background-color #eeeef3
+  .header
+    height 20px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
 
-.park .header
-  height 20px
-  line-height 14px
-  margin 0
-  header 0
-  padding 0
+    a
+      color black
+      text-decoration none
 
-  a
-    color black
-    text-decoration none
 
-.park .body
-  height 88px
-  line-height 14px
-  margin 0
-  header 0
-  padding 0
+  :nth-child(even)
+    background-color #eeeef3
 
-.park img
-  clear left
-  height 88px
-  width 117px
-  float left
-  margin-right 6px
+  .body
+    height 88px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
 
-.park span
-  font-size 11px
-  margin 0
-  padding 0
+  img
+    clear left
+    height 88px
+    width 117px
+    float left
+    margin-right 6px
 
-.park .number
-  padding-right 10px
+  span
+    font-size 11px
+    margin 0
+    padding 0
 
-.park .name
-  height 12px
-  font-size 12px
-  line-height 14px
-  font-weight bold
+  .number
+    padding-right 10px
 
-.park .distance
-  font-size 8px
-  line-height 14px
-  float right
-  position relative
-  top 0px
-  right 4px
+  .name
+    height 12px
+    font-size 12px
+    line-height 14px
+    font-weight bold
 
-.park .fee
-  line-height 12px
+  .distance
+    font-size 8px
+    line-height 14px
+    float right
+    position relative
+    top 0px
+    right 4px
 
-.park .marker
-  display block
-  position absolute
-  height 44px
-  width 66px
-  bottom 20px
-  right 10px
+  .fee
+    line-height 12px
+
+  .marker
+    display block
+    position absolute
+    height 44px
+    width 66px
+    bottom 20px
+    right 10px
 
 .help
   font-size 14px
@@ -125,19 +189,22 @@ body
 
 .modal
   position fixed
+  overflow scroll
   background-color rgba(0,0,0,0.4)
   top 0
   right 0
   left 0
   bottom 0
   z-index 3
-  padding 20px 10px
 
-.modal > div
-  position relative
-  top 0
-  right 0
-  bottom 0
-  left 0
-  height auto
-  background-color #fff
+
+  .modal-main
+    position relative
+    margin 20px
+    top 0
+    right 0
+    bottom 0
+    left 0
+    height auto
+    background-color #fff
+    -webkit-overflow-scrolling touch
