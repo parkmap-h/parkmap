@@ -50,7 +50,7 @@ var ParkShow = React.createClass({
     }
     return <div className="park-show">
       <div className="header">
-        <a href={"/parks/" + this.props.number + "/edit"}>
+        <a href={"/parks/" + this.props.number + "/edit"} target="_blank">
           <span className="number">{this.props.number}</span>
           <span className="name">{this.props.name}</span>
         </a>
