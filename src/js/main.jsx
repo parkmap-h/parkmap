@@ -14,7 +14,7 @@ if (location.hostname === production_host) {
   baseurl = 'http://' + production_host;
 }
 
-var Park = React.createClass({
+var ParkList = React.createClass({
   onMarkerClick: function(e) {
     this.props.onMarkerClick(this.props.number);
   },
@@ -23,9 +23,34 @@ var Park = React.createClass({
     if (this.props.fee) {
       fee = "今から1時間停めると" + this.props.fee + "円かかります。";
     }
-    return <div className="park">
+    return <div className="park-list">
       <div className="header">
         <a href={"/parks/" + this.props.number + "/edit"}>
+          <span className="number">{this.props.number}</span>
+          <span className="name">{this.props.name}</span>
+        </a>
+        <span className="distance">{this.props.distance}</span>
+      </div>
+      <div className="body">
+        <img src={this.props.src} />
+        <span className="fee">{fee}</span>
+      </div>
+    </div>;
+  }
+});
+
+var ParkShow = React.createClass({
+  onMarkerClick: function(e) {
+    this.props.onMarkerClick(this.props.number);
+  },
+  render: function() {
+    var fee = "料金情報がありません。";
+    if (this.props.fee) {
+      fee = "今から1時間停めると" + this.props.fee + "円かかります。";
+    }
+    return <div className="park-show">
+      <div className="header">
+        <a href={"/parks/" + this.props.number + "/edit"} target="_blank">
           <span className="number">{this.props.number}</span>
           <span className="name">{this.props.name}</span>
         </a>
@@ -129,7 +154,7 @@ var Parkmap = React.createClass({
     var that = this;
     var parks = this.state.parks.map(function (feature) {
       var park = feature.properties;
-      return <Park
+      return <ParkList
         key={park.id}
         number={park.id}
         src={park.mini_photos[0]}
@@ -166,7 +191,7 @@ var Parkmap = React.createClass({
       var focus = this.state.focus_park;
       modal = (<div className="modal" onClick={closeModal}>
                  <div className="modal-main">
-                   <Park
+                   <ParkShow
                     key={focus.id}
                     number={focus.id}
                     src={focus.mini_photos[0]}
