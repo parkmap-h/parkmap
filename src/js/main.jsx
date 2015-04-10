@@ -219,7 +219,7 @@ var Parkmap = React.createClass({
         height={'100%'}
         onClick={this.handleClick}
       >
-        <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleMarkerDrag}/>
+        <Marker position={this.state.target} title={'目的地'} draggable={true} onDrag={this.handleMarkerDrag}/>
         {overlays}
       </Map>
       {modal}
