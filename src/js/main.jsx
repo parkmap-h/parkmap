@@ -15,15 +15,15 @@ if (location.hostname === production_host) {
 }
 
 var ParkList = React.createClass({
-  onMarkerClick: function(e) {
-    this.props.onMarkerClick(this.props.number);
+  onClick: function(e) {
+    this.props.onClick(this.props.number);
   },
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
       fee = "今から1時間停めると" + this.props.fee + "円かかります。";
     }
-    return <div className="park-list">
+    return <div className="park-list" onClick={this.onClick}>
       <div className="header">
         <a href={"/parks/" + this.props.number + "/edit"}>
           <span className="number">{this.props.number}</span>
@@ -134,7 +134,6 @@ var Parkmap = React.createClass({
     var parks = this.state.parks.filter(
       function (park) { return park.properties.id == park_id; }
     );
-    console.log(park_id);
     this.setState({marks: this.state.marks.concat(parks)});
   },
 
@@ -142,7 +141,6 @@ var Parkmap = React.createClass({
     var parks = this.state.parks.filter(
       function (park) { return park.properties.id == park_id; }
     );
-    console.log(e);
     this.setState({marks: this.state.marks.concat(parks)});
   },
 
@@ -150,26 +148,52 @@ var Parkmap = React.createClass({
     this.setState({focus_park: park_id});
   },
 
+  handleDisplayList: function(e) {
+    console.log('hoge');
+    this.setState({is_display_list: true});
+  },
+
   render: function() {
     var that = this;
-    var parks = this.state.parks.map(function (feature) {
-      var park = feature.properties;
-      return <ParkList
-        key={park.id}
-        number={park.id}
-        src={park.mini_photos[0]}
-        name={park.name}
-        fee={park.hour_fee}
-        distance={park.distance_human}
-        onMarkerClick={that.handleMarkerClick}
-      />;
-    });
+    if (this.state.parks.length > 0) {
+      var closeModal = function() {
+        that.setState({is_display_list: false});
+      };
+      var parks = this.state.parks.map(function (feature) {
+        var park = feature.properties;
+        var onClick = function(e) {that.onOverlayClick(park);};
+        return (
+              <ParkList
+               key={park.id}
+               number={park.id}
+               src={park.thumb_photos[0]}
+               name={park.name}
+               fee={park.hour_fee}
+               distance={park.distance_human}
+               onClick={onClick}
+              />
+          );
+      });
+      var list_view =(
+          <div className="modal">
+            <div className="close" onClick={closeModal}/>
+            <div className="modal-main">
+              {parks}
+            </div>
+          </div>
+      );
+
+      var list_button = (
+        <button className="list-button" onClick={this.handleDisplayList}>
+          リストで見る
+        </button>
+      );
+    }
     var overlays = this.state.marks.map(function (feature) {
       var coord = feature.geometry.coordinates;
       var park = feature.properties;
       var onclick =  function () {
         that.onOverlayClick(park);
-        console.log(park);
       };
       return (
         <OverlayView
@@ -190,6 +214,7 @@ var Parkmap = React.createClass({
       };
       var focus = this.state.focus_park;
       modal = (<div className="modal" onClick={closeModal}>
+                 <div className="close" onClick={closeModal}/>
                  <div className="modal-main">
                    <ParkShow
                     key={focus.id}
@@ -205,6 +230,7 @@ var Parkmap = React.createClass({
       modal = null;
     }
     return <div>
+      {list_button}
       <button className="location-button" onClick={this.handlePresentLocation}>
         現在地
       </button>
@@ -219,9 +245,10 @@ var Parkmap = React.createClass({
         height={'100%'}
         onClick={this.handleClick}
       >
-        <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleMarkerDrag}/>
+        <Marker position={this.state.target} title={'目的地'} draggable={true} onDrag={this.handleMarkerDrag}/>
         {overlays}
       </Map>
+      {this.state.is_display_list ? list_view : null}
       {modal}
     </div>;
   }
