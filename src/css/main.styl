@@ -32,6 +32,16 @@ body
   font-size 18px
   z-index 1
 
+.list-button
+  position absolute
+  top 10px
+  right 0
+  left 0
+  padding 8bpx
+  margin auto
+  width 120px
+  z-index 1
+
 .park-show
   position relative
   padding 4px 4px
@@ -114,9 +124,6 @@ body
       text-decoration none
 
 
-  :nth-child(even)
-    background-color #eeeef3
-
   .body
     height 88px
     line-height 14px
@@ -164,6 +171,9 @@ body
     bottom 20px
     right 10px
 
+.park-list:nth-child(even)
+  background-color #eeeef3
+
 .help
   font-size 14px
   margin 8px
@@ -197,6 +207,15 @@ body
   bottom 0
   z-index 3
 
+  .close
+    position fixed
+    top 0
+    right 0
+    left 0
+    bottom 0
+    height 100%
+    width auto
+    z-index 1
 
   .modal-main
     position relative
@@ -208,3 +227,4 @@ body
     height auto
     background-color #fff
     -webkit-overflow-scrolling touch
+    z-index 4
