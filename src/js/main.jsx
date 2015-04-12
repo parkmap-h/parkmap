@@ -204,6 +204,7 @@ var Parkmap = React.createClass({
           position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
         >
           <h1>{park.hour_fee ? park.hour_fee + "円" : "情報なし"}</h1>
+          <div className="pin"></div>
         </OverlayView>
       );
     });
