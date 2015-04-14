@@ -74,3 +74,4 @@ gem 'jquery-fileupload-rails'
 
 gem 'coveralls', require: false
 gem 'kaminari'
+gem 'rollbar', '~> 1.4.4'
