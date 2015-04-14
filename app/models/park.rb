@@ -42,12 +42,12 @@ class Park < ActiveRecord::Base
   end
 
   # 今から1時間停めたときの料金
-  def hour_fee
+  def hour_fee(time=Time.zone.now)
     case fee['type']
     when 'text'
       nil
     else
-      FeeCalculator.new(fee).hour_fee
+      FeeCalculator.new(fee).hour_fee(time)
     end
   end
 
