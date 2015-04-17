@@ -23,4 +23,11 @@ RSpec.describe Park, :type => :model do
       it { should eq(400) }
     end
   end
+
+  describe '#calc_fee' do
+    subject { Park.new({fee: fee}).calc_fee(time, time.since(3.hour)) }
+    let(:time) { Time.zone.now }
+    let(:fee) { {type: 'basic', per_minute: 30, fee: 300} }
+    it { should eq(1800) }
+  end
 end

@@ -41,6 +41,17 @@ class Park < ActiveRecord::Base
     st_distance
   end
 
+  def calc_fee(start, ended)
+    p start
+    p ended
+    case fee['type']
+    when 'text'
+      nil
+    else
+      FeeCalculator.new(fee).calc(start...ended)
+    end
+  end
+
   # 今から1時間停めたときの料金
   def hour_fee(time=Time.zone.now)
     case fee['type']
