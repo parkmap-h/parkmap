@@ -42,8 +42,6 @@ class Park < ActiveRecord::Base
   end
 
   def calc_fee(start, ended)
-    p start
-    p ended
     case fee['type']
     when 'text'
       nil
