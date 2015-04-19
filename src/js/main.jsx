@@ -46,7 +46,7 @@ var ParkShow = React.createClass({
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
-      fee = "今から1時間停めると" + this.props.fee + "円かかります。";
+      fee = this.props.fee + "円かかります。";
     }
     return <div className="park-show">
       <div className="header">
@@ -89,8 +89,8 @@ var Parkmap = React.createClass({
           marks: data.features.slice().sort(function(feature_a,feature_b) {
             var park_a = feature_a.properties;
             var park_b = feature_b.properties;
-            var a = park_a.hour_fee;
-            var b = park_b.hour_fee;
+            var a = park_a.calc_fee;
+            var b = park_b.calc_fee;
             if (a === null) { a = Number.POSITIVE_INFINITY; }
             if (b === null) { b = Number.POSITIVE_INFINITY; }
             return b - a;
@@ -101,7 +101,9 @@ var Parkmap = React.createClass({
     var data = {
       distance: 300,
       longitude: this.state.target.D,
-      latitude: this.state.target.k
+      latitude: this.state.target.k,
+      start_at: React.findDOMNode(this.refs.start_at).value,
+      end_at: React.findDOMNode(this.refs.end_at).value
     };
     jquery.post(baseurl + '/.json',data,success);
   },
@@ -168,7 +170,7 @@ var Parkmap = React.createClass({
                number={park.id}
                src={park.thumb_photos[0]}
                name={park.name}
-               fee={park.hour_fee}
+               fee={park.calc_fee}
                distance={park.distance_human}
                onClick={onClick}
               />
@@ -203,7 +205,7 @@ var Parkmap = React.createClass({
           mapPane="floatPane"
           position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
         >
-          <h1>{park.hour_fee ? park.hour_fee + "円" : "情報なし"}</h1>
+          <h1>{park.calc_fee ? park.calc_fee + "円" : "情報なし"}</h1>
           <div className="pin"></div>
         </OverlayView>
       );
@@ -222,7 +224,7 @@ var Parkmap = React.createClass({
                     number={focus.id}
                     src={focus.mini_photos[0]}
                     name={focus.name}
-                    fee={focus.hour_fee}
+                    fee={focus.calc_fee}
                     distance={focus.distance_human}
                    />
                  </div>
@@ -238,6 +240,8 @@ var Parkmap = React.createClass({
       <button className="search-button" onClick={this.handleSearch}>
         検索
       </button>
+      <input className="search-start" type="datetime-local" ref="start_at" />
+      <input className="search-end" type="datetime-local" ref="end_at" />
       <Map
         initialZoom={16}
         center={this.state.center}
