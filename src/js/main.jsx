@@ -6,6 +6,7 @@ var jquery = require('jquery');
 
 var Map = ReactGoogleMaps.Map;
 var Marker = ReactGoogleMaps.Marker;
+var OverlayView = ReactGoogleMaps.OverlayView;
 
 var baseurl = 'http://localhost:3000';
 var production_host = 'parkmap.eiel.info';
@@ -13,7 +14,32 @@ if (location.hostname === production_host) {
   baseurl = 'http://' + production_host;
 }
 
-var Park = React.createClass({
+var ParkList = React.createClass({
+  onClick: function(e) {
+    this.props.onClick(this.props.number);
+  },
+  render: function() {
+    var fee = "料金情報がありません。";
+    if (this.props.fee) {
+      fee = "今から1時間停めると" + this.props.fee + "円かかります。";
+    }
+    return <div className="park-list" onClick={this.onClick}>
+      <div className="header">
+        <a href={"/parks/" + this.props.number + "/edit"}>
+          <span className="number">{this.props.number}</span>
+          <span className="name">{this.props.name}</span>
+        </a>
+        <span className="distance">{this.props.distance}</span>
+      </div>
+      <div className="body">
+        <img src={this.props.src} />
+        <span className="fee">{fee}</span>
+      </div>
+    </div>;
+  }
+});
+
+var ParkShow = React.createClass({
   onMarkerClick: function(e) {
     this.props.onMarkerClick(this.props.number);
   },
@@ -22,16 +48,17 @@ var Park = React.createClass({
     if (this.props.fee) {
       fee = "今から1時間停めると" + this.props.fee + "円かかります。";
     }
-    return <div className="park">
+    return <div className="park-show">
       <div className="header">
-        <span className="number">{this.props.number}</span>
-        <span className="name">{this.props.name}</span>
+        <a href={"/parks/" + this.props.number + "/edit"} target="_blank">
+          <span className="number">{this.props.number}</span>
+          <span className="name">{this.props.name}</span>
+        </a>
         <span className="distance">{this.props.distance}</span>
       </div>
       <div className="body">
         <img src={this.props.src} />
         <span className="fee">{fee}</span>
-        <button className="marker" onClick={this.onMarkerClick}>マーク</button>
       </div>
     </div>;
   }
@@ -44,7 +71,7 @@ var Parkmap = React.createClass({
       marks: [],
       parks: [],
       target: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
-      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
+      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511)
     };
   },
 
@@ -58,6 +85,15 @@ var Parkmap = React.createClass({
             var park_a = feature_a.properties;
             var park_b = feature_b.properties;
             return park_a.distance - park_b.distance;
+          }),
+          marks: data.features.slice().sort(function(feature_a,feature_b) {
+            var park_a = feature_a.properties;
+            var park_b = feature_b.properties;
+            var a = park_a.hour_fee;
+            var b = park_b.hour_fee;
+            if (a === null) { a = Number.POSITIVE_INFINITY; }
+            if (b === null) { b = Number.POSITIVE_INFINITY; }
+            return b - a;
           })
         }
       );
@@ -98,39 +134,104 @@ var Parkmap = React.createClass({
     var parks = this.state.parks.filter(
       function (park) { return park.properties.id == park_id; }
     );
-    console.log(park_id);
     this.setState({marks: this.state.marks.concat(parks)});
+  },
+
+  handleMarkClick: function(e) {
+    var parks = this.state.parks.filter(
+      function (park) { return park.properties.id == park_id; }
+    );
+    this.setState({marks: this.state.marks.concat(parks)});
+  },
+
+  onOverlayClick: function(park_id) {
+    this.setState({focus_park: park_id});
+  },
+
+  handleDisplayList: function(e) {
+    console.log('hoge');
+    this.setState({is_display_list: true});
   },
 
   render: function() {
     var that = this;
-    var parks = this.state.parks.map(function (feature) {
-      var park = feature.properties;
-      return <Park
-        key={park.id}
-        number={park.id}
-        src={park.mini_photos[0]}
-        name={park.name}
-        fee={park.hour_fee}
-        distance={park.distance_human}
-        onMarkerClick={that.handleMarkerClick}
-      />;
-    });
-    var marks = this.state.marks.map(function (feature) {
+    if (this.state.parks.length > 0) {
+      var closeModal = function() {
+        that.setState({is_display_list: false});
+      };
+      var parks = this.state.parks.map(function (feature) {
+        var park = feature.properties;
+        var onClick = function(e) {that.onOverlayClick(park);};
+        return (
+              <ParkList
+               key={park.id}
+               number={park.id}
+               src={park.thumb_photos[0]}
+               name={park.name}
+               fee={park.hour_fee}
+               distance={park.distance_human}
+               onClick={onClick}
+              />
+          );
+      });
+      var list_view =(
+          <div className="modal">
+            <div className="close" onClick={closeModal}/>
+            <div className="modal-main">
+              {parks}
+            </div>
+          </div>
+      );
+
+      var list_button = (
+        <button className="list-button" onClick={this.handleDisplayList}>
+          リストで見る
+        </button>
+      );
+    }
+    var overlays = this.state.marks.map(function (feature) {
       var coord = feature.geometry.coordinates;
       var park = feature.properties;
+      var onclick =  function () {
+        that.onOverlayClick(park);
+      };
       return (
-        <Marker
-          key={park.id}
+        <OverlayView
+          key={"overlay-" + park.id}
+          onClick={onclick}
+          className="fee-overlay"
+          mapPane="floatPane"
           position={new GoogleMapsAPI.LatLng(coord[1], coord[0])}
-          title={park.name}
-        />
+        >
+          <h1>{park.hour_fee ? park.hour_fee + "円" : "情報なし"}</h1>
+          <div className="pin"></div>
+        </OverlayView>
       );
     });
-    if (marks.length == 0) {
-      marks = (<p className="help">目的地を設定して検索をしてください。</p>)
+    var modal = null;
+    if (this.state.focus_park) {
+      var closeModal = function() {
+        that.setState({focus_park: null});
+      };
+      var focus = this.state.focus_park;
+      modal = (<div className="modal" onClick={closeModal}>
+                 <div className="close" onClick={closeModal}/>
+                 <div className="modal-main">
+                   <ParkShow
+                    key={focus.id}
+                    number={focus.id}
+                    src={focus.mini_photos[0]}
+                    name={focus.name}
+                    fee={focus.hour_fee}
+                    distance={focus.distance_human}
+                   />
+                 </div>
+               </div>);
+    }else {
+      modal = null;
     }
     return <div>
+      {list_button}
       <button className="location-button" onClick={this.handlePresentLocation}>
         現在地
       </button>
@@ -144,13 +245,12 @@ var Parkmap = React.createClass({
         width={'100%'}
         height={'100%'}
         onClick={this.handleClick}
-        >
-        <Marker position={this.state.target} opacity={0.5} title={'目的地'}    draggable={true} onDrag={this.handleMarkerDrag}/>
-        {marks}
+      >
+        <Marker position={this.state.target} title={'目的地'} draggable={true} onDrag={this.handleMarkerDrag}/>
+        {overlays}
       </Map>
-      <div className={"parks"}>
-        {parks}
-      </div>
+      {this.state.is_display_list ? list_view : null}
+      {modal}
     </div>;
   }
 });

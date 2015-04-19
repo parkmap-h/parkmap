@@ -8,27 +8,42 @@ html(lang="ja")
     title パークマップ広島
     link(rel="stylesheet" href="/css/landing.css")
   body
-    nav.global-nav
-      h1 パークマップ広島
+    div(id="fb-root")
+    script.
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.3&appId=831188770250625";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    .content-wrap
+      nav.global-nav
+        h1 パークマップ広島
 
-    div.content-wrap
-      h1.hero あなたのための駐車場が見つかる
-      p 車で街中へ。どこに停めるのがよくわからなくて、目的から離れているいつもの駐車場に停めてしまう。パークマップ広島はそんな人を応援するサービスです。目的地に近い駐車場を簡単に見つけられます。
-      a.button.main(href="/map/") パークマップを利用する
+      .body
+        h1.hero あなたのための駐車場が見つかる
+        p 車で街中へ。どこに停めるのがよくわからなくて、目的から離れているいつもの駐車場に停めてしまう。パークマップ広島はそんな人を応援するサービスです。目的地に近い駐車場を簡単に見つけられます。
+        a.button.main(href="/map/") 利用してみる
 
-      h2 目的地が地図で設定できる
-      p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
+        h2 目的地が地図で設定できる
+        p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
 
-      h2 利用料金の予測ができる
-      p 検索結果には利用料金の予測も含まれます。あなたの目的地から近くて安い駐車場が簡単に見つけられます。
+        h2 利用料金の予測ができる
+        p 検索結果には利用料金の予測も含まれます。あなたの目的地から近くて安い駐車場が簡単に見つけられます。
 
-      h2 みんなでつくる
-      p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
-      a.build(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
+        h2 みんなでつくる
+        p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
+        a.build(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
 
-      h1 免責事項
-      p.
-        このサイトで提供される情報はユーザによって提供された情報を元に構築したものです。正確な情報や支払い料金を保証するものではありません。
+        .fb.
+          <div class="fb-page" data-href="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160"><a href="https://www.facebook.com/pages/&#x30d1;&#x30fc;&#x30af;&#x30de;&#x30c3;&#x30d7;&#x5e83;&#x5cf6;/449921165167160">パークマップ広島</a></blockquote></div></div>
+
+        h1 免責事項
+        p.
+          このサイトで提供される情報はユーザによって提供された情報を元に構築したものです。正確な情報や支払い料金を保証するものではありません。
+
+        a.button.main(href="/map/") 利用してみる
 
     aside.footer
       p.copyright Copyright 2014-2015 パークマップ広島

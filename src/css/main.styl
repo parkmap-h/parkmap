@@ -13,7 +13,7 @@ body
 #map
   position relative
   min-height 50%
-  height 50%
+  height 100%
   z-index 0
 
 .location-button
@@ -32,69 +32,147 @@ body
   font-size 18px
   z-index 1
 
-.park
+.list-button
+  position absolute
+  top 10px
+  right 0
+  left 0
+  padding 8bpx
+  margin auto
+  width 120px
+  z-index 1
+
+.park-show
+  position relative
+  padding 4px 4px
+  margin 0
+  background-color white
+
+  .header
+    height 20px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+
+    a
+      color black
+      text-decoration none
+
+  .body
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+    margin-bottom 4px
+
+  img
+    width 100%
+    margin-bottom 4px
+
+  span
+    font-size 11px
+    margin 0
+    padding 0
+
+  .number
+    padding-right 10px
+
+  .name
+    height 12px
+    font-size 12px
+    line-height 14px
+    font-weight bold
+
+  .distance
+    font-size 8px
+    line-height 14px
+    float right
+    position relative
+    top 0px
+    right 4px
+
+  .fee
+    margin-left 4px
+    margin-right 4px
+    line-height 12px
+
+  .marker
+    display block
+    position absolute
+    height 44px
+    width 66px
+    bottom 20px
+    right 10px
+
+.park-list
   position relative
   height 108px
   padding 4px 4px
   margin 0
   background-color white
 
-.park:nth-child(even)
+  .header
+    height 20px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+
+    a
+      color black
+      text-decoration none
+
+
+  .body
+    height 88px
+    line-height 14px
+    margin 0
+    header 0
+    padding 0
+
+  img
+    clear left
+    height 88px
+    width 117px
+    float left
+    margin-right 6px
+
+  span
+    font-size 11px
+    margin 0
+    padding 0
+
+  .number
+    padding-right 10px
+
+  .name
+    height 12px
+    font-size 12px
+    line-height 14px
+    font-weight bold
+
+  .distance
+    font-size 8px
+    line-height 14px
+    float right
+    position relative
+    top 0px
+    right 4px
+
+  .fee
+    line-height 12px
+
+  .marker
+    display block
+    position absolute
+    height 44px
+    width 66px
+    bottom 20px
+    right 10px
+
+.park-list:nth-child(even)
   background-color #eeeef3
-
-.park .header
-  height 20px
-  line-height 14px
-  margin 0
-  header 0
-  padding 0
-
-.park .body
-  height 88px
-  line-height 14px
-  margin 0
-  header 0
-  padding 0
-
-.park img
-  clear left
-  height 88px
-  width 117px
-  float left
-  margin-right 6px
-
-.park span
-  font-size 11px
-  margin 0
-  padding 0
-
-.park .number
-  padding-right 10px
-
-.park .name
-  height 12px
-  font-size 12px
-  line-height 14px
-  font-weight bold
-
-.park .distance
-  font-size 8px
-  line-height 14px
-  float right
-  position relative
-  top 0px
-  right 4px
-
-.park .fee
-  line-height 12px
-
-.park .marker
-  display block
-  position absolute
-  height 44px
-  width 66px
-  bottom 20px
-  right 10px
 
 .help
   font-size 14px
@@ -104,3 +182,63 @@ body
   height 300px
   overflow scroll
   -webkit-overflow-scrolling touch
+
+.fee-overlay
+  h1
+    position relative
+    top -42px
+    left -26px
+    width 48px
+    padding 4px
+    margin 0
+    -moz-border-radius: 50px
+    -webkit-border-radius: 50px
+    border-radius: 50px
+    font-size 10px
+    text-align center
+    font-weight normal
+    background-color rgba(250,100,100,0.8)
+
+  .pin
+    position relative
+    top -42px
+    left -3px
+    margin 0
+    width 0
+    height 0
+    border solid 1px #000
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 18px solid rgba(250,100,100,0.8);
+
+.modal
+  position fixed
+  overflow scroll
+  background-color rgba(0,0,0,0.4)
+  top 0
+  right 0
+  left 0
+  bottom 0
+  z-index 3
+
+  .close
+    position fixed
+    top 0
+    right 0
+    left 0
+    bottom 0
+    height 100%
+    width auto
+    z-index 1
+
+  .modal-main
+    position relative
+    margin 20px
+    top 0
+    right 0
+    bottom 0
+    left 0
+    height auto
+    background-color #fff
+    -webkit-overflow-scrolling touch
+    z-index 4

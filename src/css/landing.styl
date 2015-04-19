@@ -1,43 +1,54 @@
+base-color = #E22E2E
+acc-color = #4199E2
+
 html
   height 100%
 
 body
   margin 0
   padding 0
-  background-color #feeeee
+  background-color base-color
 
 .global-nav
   margin 0
-  padding 0
-  height 60px
-  width 100%
-  background-color #d42
+  padding 10px 0 10px 13px
+  background-color base-color
+  text-shadow: 0 0 1px #000, 0 0 1px #000
+  border-bottom 2px solid #fff
+  -moz-box-shadow: 0 0 1px rgba(0,0,0,0.8)
+  -webkit-box-shadow: 0 4px 10px rgba(0,0,0,0.2)
 
   h1
     margin 0
     padding 0
-    padding-top 11px
-    padding-left 20px
     font-size 25px
-    color #fdd
+    color #fff
 
 .content-wrap
+  background-color #fff
+
+.body
   position relative
   margin 0
   padding-top 0
   padding-bottom 40px
   padding-right 20px
   padding-left 20px
-  background-color #fff
+  width 640px
+  margin-left auto
+  margin-right auto
 
-  h1
-    padding 40px 0 20px 0
-    margin 0
-    font-size 18px
-    align center
+  @media screen and (max-width: 720px)
+    width auto
+
 
   h1.hero
-    padding 40px 0
+    text-align center
+    padding 60px 0
+    @media screen and (max-width: 720px)
+      font-size 18px
+      margin 0
+      padding 40px 0 20px 0
 
   h2
     padding 20px 0
@@ -51,7 +62,7 @@ body
 
 .footer
   height 100px
-  background-color #d42
+  background-color base-color
 
   .copyright
     padding 80px 10px 0 10px
@@ -70,20 +81,40 @@ body
   background-color #d42
   color #fff
   text-decoration none
-  border: 1px solid #999;
+  text-shadow: 0 0 2px #000;
+  border: 2px solid #FFF;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
+  -moz-box-shadow: 0 0 1px rgba(0,0,0,0.8);
+  -webkit-box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   padding: 10px 0;
 
 .main
-  margin-top 24px
+  margin-top 60px
+  margin-bottom 60px
+  margin-left auto
+  margin-right auto
   display block
-  background-color #d42
+  background-color acc-color
   text-align center
+  font-size 18px
+  padding 16px 0px
+  font-weight bold
+  letter-spacing 2px
+  width 320px
+  @media screen and (max-width: 720px)
+    margin-top 28px
+    margin-bottom 28px
+    margin-left 18px
+    margin-right 18px
+    width auto
 
 a
   display inline-block
   padding 4px
   font-size 10px
-  color #c00
+  color acc-color
+
+.fb
+  margin-top 20px
