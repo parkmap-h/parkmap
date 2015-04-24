@@ -27,7 +27,7 @@ class Park < ActiveRecord::Base
 
   def self.search(params)
     point = point(params[:longitude].to_f,params[:latitude].to_f)
-    within_ra nge(point,params[:distance])
+    within_range(point,params[:distance])
   end
 
   def longitude
@@ -71,10 +71,10 @@ class Park < ActiveRecord::Base
   end
 
   def fee_check
-    if fee_changed?
-      24.times do |n|
-        hour_fee(Time.zone.now + n.hour)
-      end
+    return unless fee_changed?
+
+    24.times do |n|
+      hour_fee(Time.zone.now + n.hour)
     end
   end
 end
