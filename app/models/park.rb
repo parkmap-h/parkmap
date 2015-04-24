@@ -6,6 +6,7 @@ class Park < ActiveRecord::Base
   has_many :photos, through: :park_photos, source: :post_photo
 
   validates :name, presence: true
+  validate :fee_check
 
   attr_writer :longitude, :latitude
 
@@ -26,7 +27,7 @@ class Park < ActiveRecord::Base
 
   def self.search(params)
     point = point(params[:longitude].to_f,params[:latitude].to_f)
-    within_range(point,params[:distance])
+    within_ra nge(point,params[:distance])
   end
 
   def longitude
@@ -67,5 +68,13 @@ class Park < ActiveRecord::Base
       longitude: 132.467802,
       latitude: 34.393833,
     )
+  end
+
+  def fee_check
+    if fee_changed?
+      24.times do |n|
+        hour_fee(Time.zone.now + n.hour)
+      end
+    end
   end
 end
