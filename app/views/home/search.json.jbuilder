@@ -1,4 +1,6 @@
 json.type 'FeatureCollection'
+json.start_at @start_at
+json.end_at @end_at
 json.features @parks do |park|
   json.type 'Feature'
   json.geometry do
