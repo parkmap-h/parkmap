@@ -151,7 +151,6 @@ var Parkmap = React.createClass({
   },
 
   handleDisplayList: function(e) {
-    console.log('hoge');
     this.setState({is_display_list: true});
   },
 
