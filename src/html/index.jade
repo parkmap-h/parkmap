@@ -7,6 +7,8 @@ html(lang="ja")
     meta(name="keywords" content="駐車場,タイムズ,コインパーキング,広島")
     title パークマップ広島
     link(rel="stylesheet" href="/css/landing.css")
+    script(src="https://code.jquery.com/jquery-2.1.3.min.js")
+    script(src="/js/landing.js")
   body
     div(id="fb-root")
     script.
@@ -25,6 +27,9 @@ html(lang="ja")
         h1.hero あなたのための駐車場が見つかる
         p 車で街中へ。どこに停めるのがよくわからなくて、目的から離れているいつもの駐車場に停めてしまう。パークマップ広島はそんな人を応援するサービスです。目的地に近い駐車場を簡単に見つけられます。
         a.button.main(href="/map/") 利用してみる
+
+        .park-count
+          駐車場登録件数 10件
 
         h2 目的地が地図で設定できる
         p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
