@@ -25,15 +25,18 @@ var react = require('gulp-react');
 var browserify = require('gulp-browserify');
 var plumber = require('gulp-plumber');
 gulp.task('js', function() {
-  gulp.src('src/js/main.jsx')
+  var js_path = config.dest + '/js';
+  gulp.src('src/js/*.jsx')
     .pipe(plumber())
     .pipe(react())
     .pipe(browserify({
         insertGlobals : true,
         debug : !gulp.env.production
       }))
-    .pipe(gulp.dest(config.dest + '/js'))
+    .pipe(gulp.dest(js_path))
     .pipe(reload({stream: true}));
+  gulp.src('src/js/*.js')
+    .pipe(gulp.dest(js_path));
 });
 
 var stylus = require('gulp-stylus');
