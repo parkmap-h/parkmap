@@ -187,9 +187,11 @@ var Parkmap = React.createClass({
       });
       var list_view =(
           <div className="modal">
-            <div className="close" onClick={closeModal}/>
+            <div className="close-modal" onClick={closeModal}/>
             <div className="modal-main">
+              <div className="close"  onClick={closeModal}>閉じる</div>
               {parks}
+              <div className="close"  onClick={closeModal}>閉じる</div>
             </div>
           </div>
       );
