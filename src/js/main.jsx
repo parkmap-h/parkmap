@@ -167,9 +167,6 @@ var Parkmap = React.createClass({
   render: function() {
     var that = this;
     if (this.state.parks.length > 0) {
-      var closeModal = function() {
-        that.setState({is_display_list: false});
-      };
       var parks = this.state.parks.map(function (feature) {
         var park = feature.properties;
         var onClick = function(e) {that.onOverlayClick(park);};
@@ -185,13 +182,16 @@ var Parkmap = React.createClass({
               />
           );
       });
+      var closeModal = function() {
+        that.setState({is_display_list: false});
+      };
       var list_view =(
           <div className="modal">
-            <div className="close-modal" onClick={closeModal}/>
+            <div className="close-modal"/>
             <div className="modal-main">
-              <div className="close"  onClick={closeModal}>閉じる</div>
+              <button className="close" onClick={closeModal}>閉じる</button>
               {parks}
-              <div className="close"  onClick={closeModal}>閉じる</div>
+              <button className="close" onClick={closeModal}>閉じる</button>
             </div>
           </div>
       );
@@ -228,7 +228,7 @@ var Parkmap = React.createClass({
       };
       var focus = this.state.focus_park;
       modal = (<div className="modal" onClick={closeModal}>
-                 <div className="close" onClick={closeModal}/>
+                 <div className="close-modal" onClick={closeModal}/>
                  <div className="modal-main">
                    <ParkShow
                     key={focus.id}
