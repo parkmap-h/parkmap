@@ -14,8 +14,8 @@ click = (event) ->
     position: event.latLng,
     draggable: false,
     map: map,
-  $("#park_longitude").val(event.latLng.D)
-  $("#park_latitude").val(event.latLng.k)
+  $("#park_longitude").val(event.latLng.F)
+  $("#park_latitude").val(event.latLng.A)
 
 result = (event,data,status) ->
   for park in parks
