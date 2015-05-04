@@ -19,6 +19,20 @@ RSpec.describe FeeCalculator, :type => :model do
       it { is_expected.to eq(400) }
     end
 
+    context 'はじめの30分100円、30分200円の時' do
+      let(:attr) do
+        {
+         'type' => 'basic',
+         'per_minute' => 30,
+         'fee' => 200,
+         'first_minute' => 10,
+         'first_fee' => 100
+        }
+      end
+
+      it { is_expected.to eq(500) }
+    end
+
     context '30分200円最大300円の時' do
       let(:attr) do
         {
