@@ -59,6 +59,50 @@ RSpec.describe FeeCalculator, :type => :model do
       it { is_expected.to eq(400) }
     end
 
+    context '12時間以内1200円' do
+      let(:attr) do
+        {
+         'type' => 'within',
+         'minute' => 720,
+         'fee' => 1200,
+         'repeat' => false,
+         'within' => {
+           'type' => 'basic',
+           'per_minute' => 60,
+           'fee' => fee,
+         }
+        }
+      end
+
+      context '1時間3000円' do
+        let(:fee) { 3000 }
+        it { is_expected.to eq(1200) }
+      end
+
+      context '1時間100円' do
+        let(:fee) { 100 }
+        it { is_expected.to eq(100) }
+      end
+    end
+
+    context '12時間以内1200円' do
+      let(:attr) do
+        {
+         'type' => 'within',
+         'minute' => 720,
+         'fee' => 1200,
+         'repeat' => false,
+         'within' => {
+           'type' => 'basic',
+           'per_minute' => 60,
+           'fee' => 3000,
+         }
+        }
+      end
+
+      it { is_expected.to eq(1200) }
+    end
+
     context '20:00から8:00 まで60分200円 8:00から20:00 まで20分200円' do
       let(:attr) do
         {
