@@ -62,7 +62,12 @@ class FeeCalculator
   end
 
   def initialize(attr)
-    @attr = attr
+    if attr['type'] == 'within'
+      @within = attr
+      @attr = attr['within']
+    else
+      @attr = attr
+    end
   end
 
   def calc(range)
@@ -83,7 +88,15 @@ class FeeCalculator
       is_first = false
       fees << fee
     end
-    fees.reduce(:+)
+    ret = fees.reduce(:+)
+
+    if @within
+      if (range.last - range.begin) < @within['minute'].minute
+        within = @within['fee']
+        ret = within if ret > within
+      end
+    end
+    ret
   end
 
   def hour_fee(time= Time.zone.now)
