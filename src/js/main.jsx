@@ -52,7 +52,7 @@ var ParkShow = React.createClass({
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
-      fee = this.props.fee + "円かかります。";
+      fee =  date_format(this.props.start_at) + "から" + date_format(this.props.end_at) + "まで停めると" + this.props.fee + "円かかります。";
     }
     return <div className="park-show">
       <div className="header">
@@ -236,6 +236,8 @@ var Parkmap = React.createClass({
                     src={focus.mini_photos[0]}
                     name={focus.name}
                     fee={focus.calc_fee}
+                    start_at={this.state.start_at}
+                    end_at={this.state.end_at}
                     distance={focus.distance_human}
                    />
                  </div>
