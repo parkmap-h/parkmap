@@ -146,5 +146,24 @@ RSpec.describe FeeCalculator, :type => :model do
         it { is_expected.to eq(400) }
       end
     end
+    context '土日は値段が違う' do
+      let(:attr) do
+        {
+         'type' => 'wday',
+         'times' => [
+                     {
+                      'type' => 'basic',
+                      'per_minute' => 60,
+                      'fee' => 200,
+                     },
+                     {
+                      'type' => 'basic',
+                      'per_minute' => 60,
+                      'fee' => 100,
+                     },
+                    ],
+        }
+      end
+    end
   end
 end
