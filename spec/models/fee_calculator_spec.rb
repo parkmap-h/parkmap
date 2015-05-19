@@ -166,6 +166,16 @@ RSpec.describe FeeCalculator, :type => :model do
                     ],
         }
       end
+
+      context '曜日は火曜日' do
+        let(:datetime) { DateTime.new(2015,3,3,19,50) }
+        it { is_expected.to eq(100) }
+      end
+
+      context '曜日は日曜日' do
+        let(:datetime) { DateTime.new(2015,3,1,19,50) }
+        it { is_expected.to eq(200) }
+      end
     end
   end
 end
