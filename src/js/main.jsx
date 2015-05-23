@@ -14,6 +14,12 @@ if (location.hostname === production_host) {
   baseurl = 'http://' + production_host;
 }
 
+function date_format(date) {
+  if (date == null) { return ""; };
+  var date = new Date(date);
+  return date.getHours() + "時" + date.getMinutes() + "分";
+}
+
 var ParkList = React.createClass({
   onClick: function(e) {
     this.props.onClick(this.props.number);
@@ -21,7 +27,7 @@ var ParkList = React.createClass({
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
-      fee = "今から1時間停めると" + this.props.fee + "円かかります。";
+      fee = this.props.fee + "円かかります。";
     }
     return <div className="park-list" onClick={this.onClick}>
       <div className="header">
@@ -46,7 +52,7 @@ var ParkShow = React.createClass({
   render: function() {
     var fee = "料金情報がありません。";
     if (this.props.fee) {
-      fee = this.props.fee + "円かかります。";
+      fee =  date_format(this.props.start_at) + "から" + date_format(this.props.end_at) + "まで停めると" + this.props.fee + "円かかります。";
     }
     return <div className="park-show">
       <div className="header">
@@ -71,7 +77,9 @@ var Parkmap = React.createClass({
       marks: [],
       parks: [],
       target: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
-      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511)
+      center: new GoogleMapsAPI.LatLng(34.393056, 132.465511),
+      start_at: null,
+      end_at: null
     };
   },
 
@@ -94,14 +102,16 @@ var Parkmap = React.createClass({
             if (a === null) { a = Number.POSITIVE_INFINITY; }
             if (b === null) { b = Number.POSITIVE_INFINITY; }
             return b - a;
-          })
+          }),
+          start_at: data.start_at,
+          end_at: data.end_at
         }
       );
     };
     var data = {
       distance: 300,
-      longitude: this.state.target.D,
-      latitude: this.state.target.k,
+      longitude: this.state.target.F,
+      latitude: this.state.target.A,
       start_at: React.findDOMNode(this.refs.start_at).value,
       end_at: React.findDOMNode(this.refs.end_at).value
     };
@@ -151,16 +161,12 @@ var Parkmap = React.createClass({
   },
 
   handleDisplayList: function(e) {
-    console.log('hoge');
     this.setState({is_display_list: true});
   },
 
   render: function() {
     var that = this;
     if (this.state.parks.length > 0) {
-      var closeModal = function() {
-        that.setState({is_display_list: false});
-      };
       var parks = this.state.parks.map(function (feature) {
         var park = feature.properties;
         var onClick = function(e) {that.onOverlayClick(park);};
@@ -176,11 +182,16 @@ var Parkmap = React.createClass({
               />
           );
       });
+      var closeModal = function() {
+        that.setState({is_display_list: false});
+      };
       var list_view =(
           <div className="modal">
-            <div className="close" onClick={closeModal}/>
+            <div className="close-modal"/>
             <div className="modal-main">
+              <button className="close" onClick={closeModal}>閉じる</button>
               {parks}
+              <button className="close" onClick={closeModal}>閉じる</button>
             </div>
           </div>
       );
@@ -217,7 +228,7 @@ var Parkmap = React.createClass({
       };
       var focus = this.state.focus_park;
       modal = (<div className="modal" onClick={closeModal}>
-                 <div className="close" onClick={closeModal}/>
+                 <div className="close-modal" onClick={closeModal}/>
                  <div className="modal-main">
                    <ParkShow
                     key={focus.id}
@@ -225,6 +236,8 @@ var Parkmap = React.createClass({
                     src={focus.mini_photos[0]}
                     name={focus.name}
                     fee={focus.calc_fee}
+                    start_at={this.state.start_at}
+                    end_at={this.state.end_at}
                     distance={focus.distance_human}
                    />
                  </div>
@@ -232,10 +245,17 @@ var Parkmap = React.createClass({
     }else {
       modal = null;
     }
+
+    var message = "";
+    if (this.state.start_at) {
+        message = (
+                <div className="message">
+                  {date_format(this.state.start_at)}から{date_format(this.state.end_at)}の間を駐車した際の金額を表示しています
+                </div>)
+    }
     return <div>
       {list_button}
-      <button className="location-button" onClick={this.handlePresentLocation}>
-        現在地
+      <button className="location-button" onClick={this.handlePresentLocation}>        現在地
       </button>
       <button className="search-button" onClick={this.handleSearch}>
         検索
@@ -250,6 +270,7 @@ var Parkmap = React.createClass({
         height={'100%'}
         onClick={this.handleClick}
       >
+        {message}
         <Marker position={this.state.target} title={'目的地'} draggable={true} onDrag={this.handleMarkerDrag}/>
         {overlays}
       </Map>

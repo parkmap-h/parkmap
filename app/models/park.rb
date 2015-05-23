@@ -6,6 +6,7 @@ class Park < ActiveRecord::Base
   has_many :photos, through: :park_photos, source: :post_photo
 
   validates :name, presence: true
+  validate :fee_check
 
   attr_writer :longitude, :latitude
 
@@ -67,5 +68,13 @@ class Park < ActiveRecord::Base
       longitude: 132.467802,
       latitude: 34.393833,
     )
+  end
+
+  def fee_check
+    return unless fee_changed?
+
+    24.times do |n|
+      hour_fee(Time.zone.now + n.hour)
+    end
   end
 end

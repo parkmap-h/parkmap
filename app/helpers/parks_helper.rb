@@ -22,6 +22,46 @@ module ParksHelper
     }
   ]
 }
+
+12時間以内の最大料金がある場合の例
+{
+  "type": "within",
+  "minute": 720,
+  "fee": 1300,
+  "repeat": true,
+  "within": {
+    "type": "times",
+    "times": [
+      {
+        "type": "basic",
+        "start": {
+          "hour": 8,
+          "min": 0
+        },
+        "end": {
+          "hour": 20,
+          "min": 0
+        },
+        "per_minute": 60,
+        "fee": 200
+      },
+      {
+        "type": "basic",
+        "start": {
+          "hour": 20,
+          "min": 0
+        },
+        "end": {
+          "hour": 8,
+          "min": 0
+        },
+        "per_minute": 60,
+        "fee": 100
+      }
+    ]
+  }
+}
+
 JSON
   end
 end

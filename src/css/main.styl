@@ -42,17 +42,28 @@ body
   width 120px
   z-index 1
 
+.message
+  position absolute
+  top 40px
+  left 0
+  right 0
+  margin 0 10px
+  padding 8px 20px
+  z-index 1
+  font-size 14px
+  color black
+  background-color rgba(255,255,255,0.8)
 
 .search-start
   position absolute
-  bottom 10px
-  left 20px
+  bottom 2px
+  left 5px
   z-index 1
 
 .search-end
   position absolute
-  bottom 10px
-  left 200px
+  bottom 2px
+  right 5px
   z-index 1
 
 .park-show
@@ -234,7 +245,7 @@ body
   bottom 0
   z-index 3
 
-  .close
+  .close-modal
     position fixed
     top 0
     right 0
@@ -255,3 +266,13 @@ body
     background-color #fff
     -webkit-overflow-scrolling touch
     z-index 4
+
+  .close
+    width 100%
+    font-size 18px
+    margin 0
+    border 0px
+    padding 10px
+    text-align center
+    background-color red
+    color white

@@ -18,7 +18,6 @@ class PostPhoto < ActiveRecord::Base
     @exif ||= EXIFR::JPEG.new(photo.file.file)
     if gps = @exif.gps
       self.geog = Park.point(gps.longitude, gps.latitude)
-      self.image_direction = gps.image_direction
     end
   end
 end
