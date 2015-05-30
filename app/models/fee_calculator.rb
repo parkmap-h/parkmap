@@ -88,7 +88,7 @@ class FeeCalculator
       is_first = false
       fees << fee
     end
-    ret = fees.reduce(:+)
+    ret = fees.reduce(0,&:+)
 
     if @within
       if (range.last - range.begin) < @within['minute'].minute
