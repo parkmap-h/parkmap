@@ -150,18 +150,18 @@ RSpec.describe FeeCalculator, :type => :model do
       let(:attr) do
         {
          'type' => 'wday',
-         'wadys' => [
+         'wdays' => [
                      {
                       'type' => 'basic',
                       'per_minute' => 60,
                       'fee' => 200,
-                      "wady" => ['sat','sun']
+                      "wday" => ['sat','sun']
                      },
                      {
                       'type' => 'basic',
                       'per_minute' => 60,
                       'fee' => 100,
-                      "wady" => ['mon','tue','wed','thr','fri']
+                      "wday" => ['mon','tue','wed','thr','fri']
                      },
                     ],
         }
