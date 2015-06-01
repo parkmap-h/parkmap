@@ -240,6 +240,7 @@ var Parkmap = React.createClass({
                     end_at={this.state.end_at}
                     distance={focus.distance_human}
                    />
+                   <button className="close" onClick={closeModal}>閉じる</button>
                  </div>
                </div>);
     }else {

@@ -1,7 +1,4 @@
 class Park < ActiveRecord::Base
-  self.rgeo_factory_generator = RGeo::Geos.factory_generator
-  set_rgeo_factory_for_column(:geog, RGeo::Geographic.spherical_factory(srid: 4326))
-
   has_many :park_photos
   has_many :photos, through: :park_photos, source: :post_photo
 
@@ -22,7 +19,8 @@ class Park < ActiveRecord::Base
   }
 
   def self.point(longitude, latitude)
-    Park.rgeo_factory_for_column(:geog,{}).point(longitude,latitude)
+    factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    factory.point(longitude,latitude)
   end
 
   def self.search(params)

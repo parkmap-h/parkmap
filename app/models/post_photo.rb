@@ -1,7 +1,5 @@
 require 'carrierwave/orm/activerecord'
 class PostPhoto < ActiveRecord::Base
-  self.rgeo_factory_generator = RGeo::Geos.factory_generator
-  set_rgeo_factory_for_column(:geog, RGeo::Geographic.spherical_factory(srid: 4326))
   mount_uploader :photo, PostphotoUploader
   validates :geog, presence: {message: "が付与されていません。写真に位置情報があったとしてもiOS端末からアップロードすると削除されます。PCからアップロードしてください。" }
 
