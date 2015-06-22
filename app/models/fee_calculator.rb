@@ -2,6 +2,9 @@
 class FeeCalculator
   class TypeError < StandardError; end
 
+  WDAYS = %W/sun mon tue wed thr fri sat sun/
+
+
   def self._basic(range, is_first, simple_attr)
     time = range.first
     attr = simple_attr
@@ -55,6 +58,16 @@ class FeeCalculator
     _basic(target_range,is_first,attr)
   end
 
+  def self._wday(range, is_first, attr)
+    wday = WDAYS[range.first.wday]
+    target_attr = attr['wdays'].find do |basic|
+      basic['wday'].include? wday
+    end
+    raise '#{wday}の情報がありあません。 #{attr}' if target_attr.nil?
+    # TODO 日付が変わる場合はrangeを分割する必要がある
+    _basic(range, is_first, target_attr)
+  end
+
   def self.create_range(time,start_hour,start_min,end_hour,end_min)
     start = time.change(hour: start_hour, minute: start_min)
     _end = time.change(hour:  end_hour, minute: end_min)
@@ -82,6 +95,8 @@ class FeeCalculator
         now, fee = *_basic(target_range, is_first, @attr)
       when 'times'
         now, fee = *_times(target_range, is_first, @attr)
+      when 'wday'
+        now, fee = *_wday(target_range, is_first, @attr)
       else
         raise TypeError, '対応していない種類です。'
       end
@@ -109,5 +124,9 @@ class FeeCalculator
 
   def _times(range, is_first, attr)
     self.class._times(range, is_first, attr)
+  end
+
+  def _wday(range, is_first, attr)
+    self.class._wday(range, is_first, attr)
   end
 end
