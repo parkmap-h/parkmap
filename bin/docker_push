@@ -10,4 +10,6 @@ docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 docker tag $IMAGE_NAME $IMAGE_NAME_BUILD
 docker tag $IMAGE_NAME $IMAGE_NAME_SHA
 docker tag $IMAGE_NAME $IMAGE_NAME_BRANCH
-docker push $IMAGE_NAME_SHA $IMAGE_NAME_BRANCH
+docker push --help
+docker push $IMAGE_NAME_SHA
+docker push $IMAGE_NAME_BRANCH
