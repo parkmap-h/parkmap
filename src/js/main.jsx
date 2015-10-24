@@ -108,11 +108,10 @@ var Parkmap = React.createClass({
         }
       );
     };
-    console.log(this.state.target);
     var data = {
       distance: 300,
-      longitude: this.state.target.K,
-      latitude: this.state.target.G,
+      longitude: this.state.target.lng(),
+      latitude: this.state.target.lat(),
       start_at: React.findDOMNode(this.refs.start_at).value,
       end_at: React.findDOMNode(this.refs.end_at).value
     };
