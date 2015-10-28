@@ -3,7 +3,7 @@ html(lang="ja")
   head
     meta(name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no")
     meta(charset="UTF-8")
-    meta(name="description" content="みんなで作る有料駐車場マップ。行きたいところに近くて安い駐車場がみつけられます")
+    meta(name="description" content="みんなで作る有料駐車場マップ。空いている駐車場、安い駐車場がみつけられます")
     meta(name="keywords" content="駐車場,タイムズ,コインパーキング,広島")
     title パークマップ広島
     link(rel="stylesheet" href="/css/landing.css")
@@ -26,19 +26,25 @@ html(lang="ja")
       .body
         h1.hero あなたのための駐車場が見つかる
         p 車で街中へ。どこに停めるのがよくわからなくて、目的から離れているいつもの駐車場に停めてしまう。パークマップ広島はそんな人を応援するサービスです。目的地に近い駐車場を簡単に見つけられます。
-        a.button.main(href="/map/") 利用してみる
+        p 現在は、料金を調べることができる料金パークマップと空いている駐車場をみつけられる空き情報パークマップのふたつを公開しています
+        a.button.main(href="/map/") 料金を調べる
+        a.button.main(href="http://parkmap-beta.eiel.info") 空き情報を調べる
 
         .park-count
           駐車場登録件数 10件
 
-        h2 目的地が地図で設定できる
-        p 目的地を設定する際は地図をクリックするだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
+        h2 地図で確認できる
+        p 地図であなたの目的地付近の情報を見るだけ。スマートフォンを使って今いる場所も取得できるので、簡単に操作できます。
 
         h2 利用料金の予測ができる
         p 検索結果には利用料金の予測も含まれます。あなたの目的地から近くて安い駐車場が簡単に見つけられます。
 
+        h2 空いている駐車場がわかる
+        p 地図上に空いている駐車場と空いてない駐車場が表示され一目でどこの駐車場が空いているのかわかります。
+
         h2 みんなでつくる
-        p パークマップの情報は地元の人の情報提供によって構築されています。自分たちの街を便利する情報を一緒に作りませんか。
+        p パークマップの情報は地元の人の情報提供によって構築されています。駐車場の空き情報だって利用者が登録しています。
+        p 開発したアプリケーションの中身もオープンにしています。一緒にパークマップを作りたい人を募集しています。自分たちの街を便利する情報を一緒に作りませんか。
         a.build(href="https://github.com/parkmap-h/parkmap/wiki") もっと詳しく
 
         .fb.
@@ -48,7 +54,8 @@ html(lang="ja")
         p.
           このサイトで提供される情報はユーザによって提供された情報を元に構築したものです。正確な情報や支払い料金を保証するものではありません。
 
-        a.button.main(href="/map/") 利用してみる
+        a.button.main(href="/map/") 料金を調べる
+        a.button.main(href="http://parkmap-beta.eiel.info") 空き情報を調べる
 
     aside.footer
       p.copyright Copyright 2014-2015 パークマップ広島
