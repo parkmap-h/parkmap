@@ -9,7 +9,7 @@ var Marker = ReactGoogleMaps.Marker;
 var OverlayView = ReactGoogleMaps.OverlayView;
 
 var baseurl = 'http://localhost:3000';
-var production_host = 'parkmap.eiel.info';
+var production_host = 'parkmap.in';
 if (location.hostname === production_host) {
   baseurl = 'http://' + production_host;
 }
